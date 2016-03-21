@@ -1,0 +1,26 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="ISO-8859-1">
+<title>Matrícula artes</title>
+</head>
+<body>
+<h3>Matrícula artes</h3>
+<form action="manter_matricula_artes.do" method = "post">     <!--coloca o .do para indicar que faz algo  --> 
+	Código da matrícula: <input type = "text" name="codigoMatricula"><br>
+	Código: <input type="text" name="codigo"><br>
+	Data: <input type="text" name="data"><br>
+	Valor: <input type = "text" name="valor"><br>
+	Status pagamento: <input type="text" name="statusPag"><br>
+	Status matrícula: <input type="text" name="statusMat"><br>
+	Aluno: <input type = "text" name="aluno"><br>
+	Curso: <input type="text" name="curso"><br>
+	
+    <input type="submit" name="acao" value="Cadastrar">
+    <input type="submit" name="acao" value="Consultar">
+    <input type="submit" name="acao" value="Cancelar">
+    <input type="submit" name="acao" value="Deletar">
+	<input type="submit" name="acao" value="GerarRelatorio">
+</form>       
+</body>
+</html>

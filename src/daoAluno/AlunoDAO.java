@@ -121,12 +121,35 @@ public class AlunoDAO {
 
 	
 	
+
+	// ALTERA
+	public void alterar(AlunoTO alunoTO){ 
+
+		String sql = "update dadosAluno set nome=?, endereco=?, telefone=?, rg=?, email=?, usuario=?, senha=? where cpf= ?";
+
+		try (Connection conn = ConnectionFactory.obtemConexao();
+				PreparedStatement pst = conn.prepareStatement(sql);) {
+
+			//PreparedStatement pst = conn.prepareStatement(sql);   // usa esse prepared para evitar ataques de hackers 
+			pst.setString(1,alunoTO.getNome());
+			pst.setString(2,alunoTO.getEndereco());
+			pst.setString(3,alunoTO.getTelefone());
+			pst.setString(4,alunoTO.getRg());
+			pst.setString(5,alunoTO.getEmail());
+			pst.setString(6,alunoTO.getLogin());
+			pst.setString(7,alunoTO.getSenha());
+			pst.setString(8,alunoTO.getCpf());
+			pst.executeUpdate();
+			pst.close();
+		} 
+
+		catch(Exception e) {
+	//		JOptionPane.showMessageDialog(null, (bn.getString("erroAleatorio")) , (bn.getString("msgErro")), JOptionPane.ERROR_MESSAGE); 
+			e.printStackTrace();
+		}
+	}
 	
-	
-	
-	
-	
-	
+
 	
 	/*
 	 * 
@@ -174,33 +197,6 @@ public class AlunoDAO {
 
 	}
 
-	// ALTERA
-	public void alterar(AlunoTO alunoTO){ 
-	 
-		Connection conn = getConnection(); 
-		String sql = "update dadosAluno set nome=?, endereco=?, telefone=?, rg=?, email=?, usuario=?, senha=? where cpf= ?";
-
-		try{
-
-			PreparedStatement pst = conn.prepareStatement(sql);   // usa esse prepared para evitar ataques de hackers 
-			pst.setString(1,alunoTO.getNome());
-			pst.setString(2,alunoTO.getEndereco());
-			pst.setString(3,alunoTO.getTelefone());
-			pst.setString(4,alunoTO.getRg());
-			pst.setString(5,alunoTO.getEmail());
-			pst.setString(6,alunoTO.getLogin());
-			pst.setString(7,alunoTO.getSenha());
-			pst.setString(8,alunoTO.getCpf());
-			pst.executeUpdate();
-			pst.close();
-			JOptionPane.showMessageDialog(null,(bn.getString("sucessoAtualizarAluno")),(bn.getString("messagemAluno")), JOptionPane.INFORMATION_MESSAGE); 
-		} 
-
-		catch(Exception e) {
-			JOptionPane.showMessageDialog(null, (bn.getString("erroAleatorio")) , (bn.getString("msgErro")), JOptionPane.ERROR_MESSAGE); 
-			//e.printStackTrace();
-		}
-	}
 
 	public void consultarExcluir(AlunoTO alunoTO){
 		

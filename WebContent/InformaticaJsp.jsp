@@ -14,7 +14,7 @@
 <%InformaticaTO to = (InformaticaTO) request.getAttribute("manterInfo"); %>
 			
 	<%= "Dados:" %> <br> 
-    Código: <input value= <%= to.getCodigo()  %>  ><br>
+    Código:  <input value= <%= to.getCodigo()  %>  ><br>
 	Nome: <input value= <%= to.getNome()  %>  ><br>
 	Data início: <input  value= <%= to.getDataInicio()  %>  ><br>
 	Data término: <input value= <%= to.getDataTermino() %> ><br>

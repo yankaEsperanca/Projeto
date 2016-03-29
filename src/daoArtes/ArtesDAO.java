@@ -116,7 +116,39 @@ public class ArtesDAO extends DatabaseConnect {
 		}   
 
 
+		// ALTERA
+		public void alterar(ArtesTO artesTO){ 
+			codigo = artesTO.getCodigo();
 
+			Connection conn = getConnection(); 
+			String sql = "update dadosCursoArtes set nome=?, dataInicio=?, dataTermino=?, horario=?, numeroVagas=?, valor=?, descricaoMaterial=?, nomeLivrosUtilizados=?,disponibilidade=? where codigo= ?";
+
+			try{
+
+				PreparedStatement pst = conn.prepareStatement(sql);   // usa esse prepared para evitar ataques de hackers 
+
+				pst.setString(1,artesTO.getNome());
+				pst.setString(2,artesTO.getDataInicio());
+				pst.setString(3,artesTO.getDataTermino());
+				pst.setString(4,artesTO.getHorario());
+				pst.setString(5,artesTO.getNumeroVagas());
+				pst.setString(6,artesTO.getValor());
+				pst.setString(7,artesTO.getDescricaoMaterial());
+				pst.setString(8,artesTO.getNomeLivrosUtilizados());
+				pst.setString(9,artesTO.getDisponibilidade());
+				pst.setString(10,artesTO.getCodigo());
+
+				pst.executeUpdate();
+				pst.close();
+
+
+				//JOptionPane.showMessageDialog(null, (bn.getString("alteracaoSucesso")) ,(bn.getString("messagem")), JOptionPane.INFORMATION_MESSAGE);     
+			} 
+			catch(Exception e) {
+				 e.printStackTrace();
+			//	JOptionPane.showMessageDialog(null, (bn.getString("alteracaoErro")) , (bn.getString("msgErro")), JOptionPane.ERROR_MESSAGE); 
+			}
+		}
 
 
 
@@ -184,39 +216,7 @@ public class ArtesDAO extends DatabaseConnect {
 		}   
 	}
 
-	// ALTERA
-	public void alterar(ArtesTO artesTO){ 
-		codigo = artesTO.getCodigo();
-
-		Connection conn = getConnection(); 
-		String sql = "update dadosCursoArtes set nome=?, dataInicio=?, dataTermino=?, horario=?, numeroVagas=?, valor=?, descricaoMaterial=?, nomeLivrosUtilizados=?,disponibilidade=? where codigo= ?";
-
-		try{
-
-			PreparedStatement pst = conn.prepareStatement(sql);   // usa esse prepared para evitar ataques de hackers 
-
-			pst.setString(1,artesTO.getNome());
-			pst.setString(2,artesTO.getDataInicio());
-			pst.setString(3,artesTO.getDataTermino());
-			pst.setString(4,artesTO.getHorario());
-			pst.setString(5,artesTO.getNumeroVagas());
-			pst.setString(6,artesTO.getValor());
-			pst.setString(7,artesTO.getDescricaoMaterial());
-			pst.setString(8,artesTO.getNomeLivrosUtilizados());
-			pst.setString(9,artesTO.getDisponibilidade());
-			pst.setString(10,artesTO.getCodigo());
-
-			pst.executeUpdate();
-			pst.close();
-
-
-			JOptionPane.showMessageDialog(null, (bn.getString("alteracaoSucesso")) ,(bn.getString("messagem")), JOptionPane.INFORMATION_MESSAGE);     
-		} 
-		catch(Exception e) {
-			//  e.printStackTrace();
-			JOptionPane.showMessageDialog(null, (bn.getString("alteracaoErro")) , (bn.getString("msgErro")), JOptionPane.ERROR_MESSAGE); 
-		}
-	}
+	
 
 
 	

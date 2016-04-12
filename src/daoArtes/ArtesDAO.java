@@ -2,90 +2,31 @@ package daoArtes;
 
 import java.sql.*;
 import to.*;
-import javax.swing.*;
 import java.util.*;
 
 
-public class ArtesDAO extends DatabaseConnect {
-	protected String codigo, nome, dataInicio, dataTermino, horario, numeroVagas, valor, descricaoMaterial, nomeLivrosUtilizados,disponibilidade;  
-	protected int selecionado;
+public class ArtesDAO {
+	protected String nome, dataInicio, dataTermino, horario, numeroVagas, valor, descricaoMaterial, nomeLivrosUtilizados,disponibilidade;  
+	protected int selecionado, codigo;
 	protected ArrayList<String> dadosConsult = new ArrayList<String> ();
 	public ArrayList<String> buscaTodos = new ArrayList<String> ();
 	//protected ResourceBundle bn = null;  
 //	public ArtesTO artesConsulta=null;
 
 
-	//INSERIR	
-	public void inserir(ArtesTO artesTO){ 
-
-		Connection conn = getConnection();
-		String sql = "insert into dadosCursoArtes set codigo=?, nome=?, dataInicio=?, dataTermino=?, horario=?, numeroVagas=?, valor=?, descricaoMaterial=?, nomeLivrosUtilizados=?, disponibilidade=? ";
-
-		try{
-
-			PreparedStatement pst = conn.prepareStatement(sql);   // usa esse prepared para evitar ataques de hackers 
-			pst.setString(1,artesTO.getCodigo());
-			pst.setString(2,artesTO.getNome());
-			pst.setString(3,artesTO.getDataInicio());
-			pst.setString(4,artesTO.getDataTermino());
-			pst.setString(5,artesTO.getHorario());
-			pst.setString(6,artesTO.getNumeroVagas());
-			pst.setString(7,artesTO.getValor());
-			pst.setString(8,artesTO.getDescricaoMaterial());
-			pst.setString(9,artesTO.getNomeLivrosUtilizados());
-			pst.setString(10,artesTO.getDisponibilidade());
-			pst.executeUpdate();
-			pst.close();
-
-	//		JOptionPane.showMessageDialog(null, (bn.getString("mensagemCursoCriado")) ,(bn.getString("messagem")), JOptionPane.INFORMATION_MESSAGE);     
-		} 
-		catch(Exception e) {
-		//	JOptionPane.showMessageDialog(null, (bn.getString("mensagemErroCurso")) , (bn.getString("msgErro")), JOptionPane.ERROR_MESSAGE);    
-			//   e.printStackTrace();// serve para exibir o erro           
-		System.out.println("erro");}
-	}
-
 	
-	// DELETAR UM ALUNO
-	public void deletar(ArtesTO artesTO){
-
-		Connection conn = getConnection();
-
-		String sql = "delete from dadosCursoArtes where codigo=?";
-
-		try{
-
-			PreparedStatement pst = conn.prepareStatement(sql);   // usa esse prepared para evitar ataques de hackers 
-			pst.setString(1,artesTO.getCodigo());
-			pst.executeUpdate();
-			pst.close();
-
-		//	JOptionPane.showMessageDialog(null, (bn.getString("delecaoSucesso")) ,(bn.getString("messagem")), JOptionPane.INFORMATION_MESSAGE);     
-		} 
-		catch(Exception e) {
-			//  e.printStackTrace();
-			//JOptionPane.showMessageDialog(null, (bn.getString("delecaoErro")) , (bn.getString("msgErro")), JOptionPane.ERROR_MESSAGE);  
-		}    
-	}
-
-
-	//CONSULTA PARA DEPOIS EXCLUIR  
-		public ArtesTO consultar(ArtesTO artesTO){
-
-			codigo = artesTO.getCodigo();
-			Connection conn = getConnection();  //cria a coneção com o banco.
-
-			String sql = "select * from dadosCursoArtes where codigo=?"; //ira selecionar na tabela compromisso , a tabela com nome codigo e recebe ? 
-
-			try{
-
-				PreparedStatement pst = conn.prepareStatement(sql);   // usa esse prepared para evitar ataques de hackers 
-				pst.setString(1, artesTO.getCodigo());
-				ResultSet rs = pst.executeQuery(); //sempre q for fazer o select usar o executeQuerry
-
-				if (rs.next()) {    
-
-					artesTO.setCodigo(rs.getString("codigo"));
+	public ArrayList<ArtesTO> listarCursoArtes() {
+		ArtesTO artesTO;
+		ArrayList<ArtesTO> lista = new ArrayList<>();
+		String sqlSelect = "select * from dadosCursoArtes"; 
+		// usando o try with resources do Java 7, que fecha o que abriu
+		try (Connection conn = ConnectionFactory.obtemConexao();
+				PreparedStatement stm = conn.prepareStatement(sqlSelect);) {
+			try (ResultSet rs = stm.executeQuery();) {
+				while(rs.next()) {
+					artesTO = new ArtesTO();
+					
+					artesTO.setCodigo(rs.getInt("codigo"));
 					artesTO.setNome(rs.getString(2)); // o resultset pega o conteudo da descricao e coloca em uma variavel p exibir
 					artesTO.setDataInicio(rs.getString(3));
 					artesTO.setDataTermino(rs.getString(4));
@@ -95,38 +36,117 @@ public class ArtesDAO extends DatabaseConnect {
 					artesTO.setDescricaoMaterial(rs.getString(8));
 					artesTO.setNomeLivrosUtilizados(rs.getString(9));          
 					artesTO.setDisponibilidade(rs.getString(10));      
+					lista.add(artesTO);
 				}
-
-				pst.close();     
-				if(codigo.equals(artesTO.getCodigo())){
-				//	TelaExcluirCursoArtes telaExcluir = new TelaExcluirCursoArtes(selecionado);
-					//telaExcluir.dadosPreenchidoArtes(artesTO); 
-					return artesTO;
-				}
-				else {
-//					JOptionPane.showMessageDialog(null, (bn.getString("erroBuscarCodigo")) , (bn.getString("msgErro")), JOptionPane.ERROR_MESSAGE); 
-					System.out.println("erro banco...");
-				}
-			}   	
-			catch(Exception e) {
-				  e.printStackTrace();
-				//JOptionPane.showMessageDialog(null, (bn.getString("erroAleatorio")) , (bn.getString("msgErro")), JOptionPane.ERROR_MESSAGE);    
+			} catch (SQLException e) {
+				e.printStackTrace();
 			}
-			return artesTO;
-		}   
+		} catch (SQLException e1) {
+			System.out.print(e1.getStackTrace());
+		}
+		return lista;
+	}
+	
+	public ArrayList<ArtesTO> listarCursoArtes(String chave) {
+		ArtesTO artesTO;
+		ArrayList<ArtesTO> lista = new ArrayList<>();
+		String sqlSelect = "SELECT codigo, nome, dataInicio, dataTermino, horario, numeroVagas, valor, descricaoMaterial, nomeLivrosUtilizados, disponibilidade  FROM dadosCursoArtes where upper(nome) like ?";
+		
+		// usando o try with resources do Java 7, que fecha o que abriu
+		try (Connection conn = ConnectionFactory.obtemConexao();
+				PreparedStatement stm = conn.prepareStatement(sqlSelect);) {
+				stm.setString(1, "%" + chave.toUpperCase() + "%");
+			try (ResultSet rs = stm.executeQuery();) {
+				while(rs.next()) {
+				
+					artesTO = new ArtesTO();
+					
+					artesTO.setCodigo(rs.getInt("codigo"));
+					artesTO.setNome(rs.getString(2)); // o resultset pega o conteudo da descricao e coloca em uma variavel p exibir
+					artesTO.setDataInicio(rs.getString(3));
+					artesTO.setDataTermino(rs.getString(4));
+					artesTO.setHorario(rs.getString(5));
+					artesTO.setNumeroVagas(rs.getString(6));
+					artesTO.setValor(rs.getString(7));
+					artesTO.setDescricaoMaterial(rs.getString(8));
+					artesTO.setNomeLivrosUtilizados(rs.getString(9));          
+					artesTO.setDisponibilidade(rs.getString(10));      
+					lista.add(artesTO);
+				}
+			} catch (SQLException e) {
+				e.printStackTrace();
+			}
+		} catch (SQLException e1) {
+			System.out.print(e1.getStackTrace());
+		}
+		return lista;
+	}
+	
+	
+	
+	
+	//INSERIR	
+	public void inserir(ArtesTO artesTO){ 
 
+		
+		String sqlInsert = "insert into dadosCursoArtes (nome, dataInicio, dataTermino, horario, numeroVagas, valor, descricaoMaterial, nomeLivrosUtilizados, disponibilidade) VALUES (?,?,?,?,?,?,?,?,?)";
+
+		try (Connection conn = ConnectionFactory.obtemConexao();
+				PreparedStatement pst = conn.prepareStatement(sqlInsert);) {
+			
+		//	pst.setInt(1,artesTO.getCodigo());
+			pst.setString(1,artesTO.getNome());
+			pst.setString(2,artesTO.getDataInicio());
+			pst.setString(3,artesTO.getDataTermino());
+			pst.setString(4,artesTO.getHorario());
+			pst.setString(5,artesTO.getNumeroVagas());
+			pst.setString(6,artesTO.getValor());
+			pst.setString(7,artesTO.getDescricaoMaterial());
+			pst.setString(8,artesTO.getNomeLivrosUtilizados());
+			pst.setString(9,artesTO.getDisponibilidade());
+			pst.execute();
+			String sqlSelect = "SELECT LAST_INSERT_CODIGO()";
+			try(PreparedStatement stm1 = conn.prepareStatement(sqlSelect);
+					ResultSet rs = stm1.executeQuery();){
+					if(rs.next()){
+						artesTO.setCodigo(rs.getInt(1));
+					}
+			}
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}
+	}
+	
+	
+
+	
+	// DELETAR UM ALUNO
+	public void deletar(ArtesTO artesTO){
+
+		String sqlDelete = "DELETE from dadosCursoArtes where codigo=?";
+		try (Connection conn = ConnectionFactory.obtemConexao();
+				PreparedStatement pst = conn.prepareStatement(sqlDelete);) {
+			
+			pst.setInt(1, artesTO.getCodigo());
+			pst.executeUpdate();
+
+		//	JOptionPane.showMessageDialog(null, (bn.getString("delecaoSucesso")) ,(bn.getString("messagem")), JOptionPane.INFORMATION_MESSAGE);     
+		} 
+		catch(Exception e) {
+			  e.printStackTrace();
+			//JOptionPane.showMessageDialog(null, (bn.getString("delecaoErro")) , (bn.getString("msgErro")), JOptionPane.ERROR_MESSAGE);  
+		}    
+	}
+
+	
 
 		// ALTERA
 		public void alterar(ArtesTO artesTO){ 
 			codigo = artesTO.getCodigo();
-
-			Connection conn = getConnection(); 
-			String sql = "update dadosCursoArtes set nome=?, dataInicio=?, dataTermino=?, horario=?, numeroVagas=?, valor=?, descricaoMaterial=?, nomeLivrosUtilizados=?,disponibilidade=? where codigo= ?";
-
-			try{
-
-				PreparedStatement pst = conn.prepareStatement(sql);   // usa esse prepared para evitar ataques de hackers 
-
+			String sqlUpdate = "update dadosCursoArtes set nome=?, dataInicio=?, dataTermino=?, horario=?, numeroVagas=?, valor=?, descricaoMaterial=?, nomeLivrosUtilizados=?,disponibilidade=? where codigo= ?";
+			try (Connection conn = ConnectionFactory.obtemConexao();
+				PreparedStatement pst = conn.prepareStatement(sqlUpdate);) {
+				
 				pst.setString(1,artesTO.getNome());
 				pst.setString(2,artesTO.getDataInicio());
 				pst.setString(3,artesTO.getDataTermino());
@@ -136,195 +156,45 @@ public class ArtesDAO extends DatabaseConnect {
 				pst.setString(7,artesTO.getDescricaoMaterial());
 				pst.setString(8,artesTO.getNomeLivrosUtilizados());
 				pst.setString(9,artesTO.getDisponibilidade());
-				pst.setString(10,artesTO.getCodigo());
+				pst.setInt(10,artesTO.getCodigo());
 
 				pst.executeUpdate();
-				pst.close();
-
-
-				//JOptionPane.showMessageDialog(null, (bn.getString("alteracaoSucesso")) ,(bn.getString("messagem")), JOptionPane.INFORMATION_MESSAGE);     
-			} 
+		} 
 			catch(Exception e) {
 				 e.printStackTrace();
-			//	JOptionPane.showMessageDialog(null, (bn.getString("alteracaoErro")) , (bn.getString("msgErro")), JOptionPane.ERROR_MESSAGE); 
-			}
+				}
 		}
 
-
-
-
-	/*
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-	//CONSULTAR POR CODIGO PARA DEPOIS ALTERAR  
-	public void consultarAlterar(ArtesTO artesTO){
-
-		codigo = artesTO.getCodigo();
-		Connection conn = getConnection();  //cria a coneção com o banco.
-
-		String sql = "select * from dadosCursoArtes where codigo=?"; //ira selecionar na tabela compromisso , a tabela com nome codigo e recebe ? 
-
-		try{
-
-			PreparedStatement pst = conn.prepareStatement(sql);   // usa esse prepared para evitar ataques de hackers 
-			pst.setString(1,artesTO.getCodigo());
-			ResultSet rs = pst.executeQuery(); //sempre q for fazer o select usar o executeQuerry
-
-			if (rs.next()) {    
-
-				artesTO.setCodigo(rs.getString("codigo"));
-				artesTO.setNome(rs.getString(2)); // o resultset pega o conteudo da descricao e coloca em uma variavel p exibir
-				artesTO.setDataInicio(rs.getString(3));
-				artesTO.setDataTermino(rs.getString(4));
-				artesTO.setHorario(rs.getString(5));
-				artesTO.setNumeroVagas(rs.getString(6));
-				artesTO.setValor(rs.getString(7));
-				artesTO.setDescricaoMaterial(rs.getString(8));
-				artesTO.setNomeLivrosUtilizados(rs.getString(9));          
-				artesTO.setDisponibilidade(rs.getString(10));    
-
-				artesConsulta = artesTO;
-
+// id == codigo		
+		public ArtesTO carregar(ArtesTO ArtesTO ) {
+			ArtesTO to = new ArtesTO();
+			to.setCodigo(ArtesTO.getCodigo());
+			codigo = ArtesTO.getCodigo();
+			String sqlSelect = "SELECT codigo, nome, dataInicio, dataTermino, horario, numeroVagas, valor, descricaoMaterial, nomeLivrosUtilizados, disponibilidade  FROM dadosCursoArtes WHERE codigo= ?";
+			
+			// usando o try with resources do Java 7, que fecha o que abriu
+			try (Connection conn = ConnectionFactory.obtemConexao();
+					PreparedStatement stm = conn.prepareStatement(sqlSelect);) {
+				stm.setInt(1, codigo);
+				try (ResultSet rs = stm.executeQuery();) {
+					if (rs.next()) {					
+					
+						to.setNome(rs.getString(2)); // o resultset pega o conteudo da descricao e coloca em uma variavel p exibir
+						to.setDataInicio(rs.getString(3));
+						to.setDataTermino(rs.getString(4));
+						to.setHorario(rs.getString(5));
+						to.setNumeroVagas(rs.getString(6));
+						to.setValor(rs.getString(7));
+						to.setDescricaoMaterial(rs.getString(8));
+						to.setNomeLivrosUtilizados(rs.getString(9));          
+						to.setDisponibilidade(rs.getString(10));      
+					}
+				} catch (SQLException e) {
+					e.printStackTrace();
+				}
+			} catch (SQLException e1) {
+				System.out.print(e1.getStackTrace());
 			}
-			pst.close();     
-			if(codigo.equals(artesTO.getCodigo())){
-				TelaAlterarCursoArtes telaAlterar = new TelaAlterarCursoArtes(selecionado);
-				telaAlterar.dadosPreenchidoArtes(artesTO);
-			}
-			else {
-				JOptionPane.showMessageDialog(null, (bn.getString("erroBuscarCodigo")) , (bn.getString("msgErro")), JOptionPane.ERROR_MESSAGE); 
-
-			}
-		}       
-
-		catch(Exception e) {    
-			//   e.printStackTrace();     
-			JOptionPane.showMessageDialog(null, (bn.getString("erroAleatorio")) , (bn.getString("msgErro")), JOptionPane.ERROR_MESSAGE); 
-		}   
+			return to;
+		}
 	}
-
-	
-
-
-	
-
-
-
-	// CONSULTAR TODOS OS CURSOS
-
-	public ArrayList<String> consultarTodosCursos() {
-		// String vetor[] = new String[30];
-
-		Connection conn = getConnection();  //cria a coneção com o banco.
-
-		String sql = "select * from dadosCursoArtes";
-
-		try{
-
-			PreparedStatement pst = conn.prepareStatement(sql);   // usa esse prepared para evitar ataques de hackers 
-			ResultSet rs = pst.executeQuery(); //sempre q for fazer o select usar o executeQuerry
-
-			while (rs.next()) {
-				dadosConsult.add(rs.getString(1));  
-				dadosConsult.add(rs.getString(2)); // o resultset pega o conteudo da descricao e coloca em uma variavel p exibir
-				dadosConsult.add(rs.getString(3));
-				dadosConsult.add( rs.getString(4));
-				dadosConsult.add( rs.getString(5));
-				dadosConsult.add( rs.getString(6));
-				dadosConsult.add( rs.getString(7));
-				dadosConsult.add( rs.getString(8));
-				dadosConsult.add(rs.getString(9));          
-				dadosConsult.add( rs.getString(10));
-			}
-			pst.close();     
-		}       
-
-		catch(Exception e) {
-			//e.printStackTrace();
-			JOptionPane.showMessageDialog(null, (bn.getString("erroAleatorio")) , (bn.getString("msgErro")), JOptionPane.ERROR_MESSAGE); 
-
-		}
-		return dadosConsult; 
-	}
-
-
-
-	public ArrayList<String> buscarTodosCPF() {
-		// String vetor[] = new String[30];
-
-		Connection conn = getConnection();  //cria a coneção com o banco.
-
-		String sql = "select codigo from dadosCursoArtes";
-
-		try{
-
-			PreparedStatement pst = conn.prepareStatement(sql);   // usa esse prepared para evitar ataques de hackers 
-			//pst.setString(1,cpf);
-			ResultSet rs = pst.executeQuery(); //sempre q for fazer o select usar o executeQuerry
-
-
-			while (rs.next()) {
-
-				buscaTodos.add(rs.getString("codigo"));  
-			}
-			pst.close();     
-		}       
-
-		catch(Exception e) {
-			//e.printStackTrace();
-			JOptionPane.showMessageDialog(null, (bn.getString("erroAleatorio")) , (bn.getString("msgErro")), JOptionPane.ERROR_MESSAGE); 
-
-		}
-		return buscaTodos; 
-	}
-
-
-
-	public String BuscaValor(String cursoA){
-		// String vetor[] = new String[30];
-		String codigo = cursoA;
-
-		Connection conn = getConnection();  //cria a coneção com o banco.
-
-		String sql = "select valor from dadosCursoArtes where codigo=?";
-
-
-		try{
-
-			PreparedStatement pst = conn.prepareStatement(sql);   // usa esse prepared para evitar ataques de hackers 
-			pst.setString(1,codigo);
-			ResultSet rs = pst.executeQuery(); //sempre q for fazer o select usar o executeQuerry
-
-
-			while (rs.next()) {
-
-				valor = rs.getString(1);
-
-			}
-			pst.close();     
-		}       
-
-		catch(Exception e) {
-			// e.printStackTrace();
-			JOptionPane.showMessageDialog(null, (bn.getString("erroAleatorio")) , (bn.getString("msgErro")), JOptionPane.ERROR_MESSAGE); 
-
-		}
-		//DadosMatricula dMat = new DadosMatricula(selecionado);
-		//dMat.calcularDesconto(quantidade); 
-		return valor;
-	}   
-	 */
-}//fecha classe

@@ -1,6 +1,8 @@
 package daoAluno;
 
 import javax.swing.JOptionPane;
+
+import daoAluno.ConnectionFactory;
 import to.*;
 import java.util.ArrayList;
 import java.util.*;
@@ -17,7 +19,102 @@ public class AlunoDAO {
 	public ArrayList<String> buscaTodos = new ArrayList<String> ();
 	//protected ResourceBundle bn = null;
 	public AlunoTO alunoConsulta =null;
+	
+	
+	//Buscar todos os clientes
+	public ArrayList<AlunoTO> listarAluno() {
+		AlunoTO to;
+		ArrayList<AlunoTO> lista = new ArrayList<>();
+		String sqlSelect = "SELECT nome, endereco, telefone, cpf, rg, email, usuario, senha FROM dadosAluno";
+		// usando o try with resources do Java 7, que fecha o que abriu
+		try (Connection conn = ConnectionFactory.obtemConexao();
+				PreparedStatement stm = conn.prepareStatement(sqlSelect);) {
+			try (ResultSet rs = stm.executeQuery();) {
+				while(rs.next()) {
+					to = new AlunoTO();
+					to.setNome(rs.getString(1));
+					to.setEndereco(rs.getString(2));
+					to.setTelefone(rs.getString(3));
+					to.setCpf(rs.getString(4));
+					to.setRg(rs.getString(5));
+					to.setEmail(rs.getString(6));
+					to.setLogin(rs.getString(7));
+					to.setSenha(rs.getString(8));
+					lista.add(to);
+				}
+			} catch (SQLException e) {
+				e.printStackTrace();
+			}
+		} catch (SQLException e1) {
+			System.out.print(e1.getStackTrace());
+		}
+		return lista;
+	}
+	
+	// listar cliente com nome 
+	public ArrayList<AlunoTO> listarAluno(String chave) {
+		AlunoTO to;
+		ArrayList<AlunoTO> lista = new ArrayList<>();
+		String sqlSelect = "SELECT nome, endereco, telefone, cpf, rg, email, usuario, senha FROM dadosAluno where upper(nome) like ?";
+		// usando o try with resources do Java 7, que fecha o que abriu
+		try (Connection conn = ConnectionFactory.obtemConexao();
+				PreparedStatement stm = conn.prepareStatement(sqlSelect);) {
+				stm.setString(1, "%" + chave.toUpperCase() + "%");
+			try (ResultSet rs = stm.executeQuery();) {
+				while(rs.next()) {
+					to = new AlunoTO();
+					
+					to.setNome(rs.getString(1));
+					to.setEndereco(rs.getString(2)); // o resultset pega o conteudo da descricao e coloca em uma variavel p exibir
+					to.setTelefone(rs.getString(3));
+					to.setCpf(rs.getString(4));
+					to.setRg(rs.getString(5));
+					to.setEmail(rs.getString(6));
+					to.setLogin(rs.getString(7));
+					to.setSenha(rs.getString(8));
+					lista.add(to);
+				}
+			} catch (SQLException e) {
+				e.printStackTrace();
+			}
+		} catch (SQLException e1) {
+			System.out.print(e1.getStackTrace());
+		}
+		return lista;
 		
+	}
+
+	//consultar por cpf com array list
+	public ArrayList<AlunoTO> listarAlunoCpf(String chave) {
+		AlunoTO to;
+		ArrayList<AlunoTO> lista = new ArrayList<>();
+		String sqlSelect = "SELECT * FROM dadosAluno where cpf=?";
+		// usando o try with resources do Java 7, que fecha o que abriu
+		try (Connection conn = ConnectionFactory.obtemConexao();
+				PreparedStatement stm = conn.prepareStatement(sqlSelect);) {
+				stm.setString(1, chave);
+			try (ResultSet rs = stm.executeQuery();) {
+				while(rs.next()) {
+					to = new AlunoTO();
+					
+					to.setNome(rs.getString(1));
+					to.setEndereco(rs.getString(2)); // o resultset pega o conteudo da descricao e coloca em uma variavel p exibir
+					to.setTelefone(rs.getString(3));
+					to.setCpf(rs.getString(4));
+					to.setRg(rs.getString(5));
+					to.setEmail(rs.getString(6));
+					to.setLogin(rs.getString(7));
+					to.setSenha(rs.getString(8));
+					lista.add(to);
+				}
+			} catch (SQLException e) {
+				e.printStackTrace();
+			}
+		} catch (SQLException e1) {
+			System.out.print(e1.getStackTrace());
+		}
+		return lista;
+	}
 	
 	
 	//INSERIR	

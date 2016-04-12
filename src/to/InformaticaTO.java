@@ -2,13 +2,14 @@ package to;
 
 public class InformaticaTO {
 
-	String codigo, nome, dataInicio, dataTermino, horario, numeroVagas, valor, numeroLab, registroSoft,disponibilidade;
+	String  nome, dataInicio, dataTermino, horario, numeroVagas, valor, numeroLab, registroSoft,disponibilidade;
+	int codigo;
 
-	public String getCodigo() {
+	public int getCodigo() {
 		return codigo;
 	}
 
-	public void setCodigo(String codigo) {
+	public void setCodigo(int codigo) {
 		this.codigo = codigo;
 	}
 
@@ -84,7 +85,7 @@ public class InformaticaTO {
 		this.disponibilidade = disponibilidade;
 	}
 
-
+	
 	@Override
 	public boolean equals(Object obj) {
 		if (this == obj)
@@ -94,10 +95,7 @@ public class InformaticaTO {
 		if (getClass() != obj.getClass())
 			return false;
 		InformaticaTO other = (InformaticaTO) obj;
-		if (codigo == null) {
-			if (other.codigo != null)
-				return false;
-		} else if (!codigo.equals(other.codigo))
+		if (codigo != other.codigo)
 			return false;
 		if (dataInicio == null) {
 			if (other.dataInicio != null)
@@ -146,4 +144,7 @@ public class InformaticaTO {
 			return false;
 		return true;
 	}
+
+
+	
 }

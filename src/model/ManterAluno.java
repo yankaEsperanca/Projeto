@@ -82,7 +82,21 @@ public class ManterAluno {
 	public void setSenha(String senha) {
 		this.senha = senha;
 	}
+	
+	public AlunoTO getTO() {
+		AlunoTO to = new AlunoTO();
 
+		to.setNome(nome);
+		to.setEndereco(endereco);
+		to.setTelefone(telefone);
+		to.setCpf(cpf);
+		to.setRg(rg);
+		to.setEmail(email);
+		to.setLogin(login);
+		to.setSenha(senha);
+		return to;
+	}
+	
 	// criar
 	public void cadastrar() {
 		AlunoDAO dao = new AlunoDAO();
@@ -99,6 +113,9 @@ public class ManterAluno {
 
 		dao.inserir(to);
 	}
+	
+	
+	
 
 	public void alterar() {
 		AlunoDAO dao = new AlunoDAO();

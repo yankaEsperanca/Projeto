@@ -2,14 +2,14 @@ package to;
 
 
 public class ArtesTO {
+	int codigo;
+	String  nome, dataInicio, dataTermino, horario, numeroVagas, valor, descricaoMaterial, nomeLivrosUtilizados,disponibilidade;
 
-	String codigo, nome, dataInicio, dataTermino, horario, numeroVagas, valor, descricaoMaterial, nomeLivrosUtilizados,disponibilidade;
-
-	public String getCodigo() {
+	public int getCodigo() {
 		return codigo;
 	}
 
-	public void setCodigo(String codigo) {
+	public void setCodigo(int codigo) {
 		this.codigo = codigo;
 	}
 
@@ -85,6 +85,8 @@ public class ArtesTO {
 		this.disponibilidade = disponibilidade;
 	}
 
+
+
 	@Override
 	public boolean equals(Object obj) {
 		if (this == obj)
@@ -94,10 +96,7 @@ public class ArtesTO {
 		if (getClass() != obj.getClass())
 			return false;
 		ArtesTO other = (ArtesTO) obj;
-		if (codigo == null) {
-			if (other.codigo != null)
-				return false;
-		} else if (!codigo.equals(other.codigo))
+		if (codigo != other.codigo)
 			return false;
 		if (dataInicio == null) {
 			if (other.dataInicio != null)
@@ -145,6 +144,6 @@ public class ArtesTO {
 		} else if (!valor.equals(other.valor))
 			return false;
 		return true;
-	}  
-
+	}
 }
+	

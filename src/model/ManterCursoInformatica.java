@@ -1,16 +1,17 @@
 package model;
 
+
 import to.InformaticaTO;
 import daoInformatica.*;
 
 public class ManterCursoInformatica {
 	
-	String codigo, nome, dataInicio, dataTermino, horario, numeroVagas, valor, numeroLab, registroSoft, disponibilidade;
-
-	
+	String  nome, dataInicio, dataTermino, horario, numeroVagas, valor, numeroLab, registroSoft, disponibilidade;
+	int codigo;
+	InformaticaTO TO;
 
 	public ManterCursoInformatica (InformaticaTO informaticaTO){
-
+		TO = informaticaTO;
 		this.codigo = informaticaTO.getCodigo();
 		this.nome = informaticaTO.getNome();
 		this.dataInicio =  informaticaTO.getDataInicio();
@@ -25,11 +26,11 @@ public class ManterCursoInformatica {
 	}
 
 	
-	public String getCodigo() {
+	public int getCodigo() {
 		return codigo;
 	}
 
-	public void setCodigo(String codigo) {
+	public void setCodigo(int codigo) {
 		this.codigo = codigo;
 	}
 
@@ -105,13 +106,28 @@ public class ManterCursoInformatica {
 		this.disponibilidade = disponibilidade;
 	}
 
+	public InformaticaTO getTO() {
+		InformaticaTO to = new InformaticaTO();
+    
+		to.setCodigo(codigo);
+		to.setNome(nome);
+		to.setDataInicio(dataInicio);
+		to.setDataTermino(dataTermino);
+		to.setHorario(horario);
+		to.setNumeroVagas(numeroVagas);
+		to.setValor(valor);
+		to.setNumeroLab(numeroLab);
+		to.setRegistroSoft(registroSoft);
+		to.setDisponibilidade(disponibilidade);
+			
+		return to;
+	}
 	
 	// criar
 	public void cadastrar() {
 		InformaticaDAO dao = new InformaticaDAO();
 		InformaticaTO to = new InformaticaTO();
 
-		to.setCodigo(codigo);
 		to.setNome(nome);
 		to.setDataInicio(dataInicio);
 		to.setDataTermino(dataTermino);
@@ -151,11 +167,12 @@ public class ManterCursoInformatica {
 		dao.deletar(to);
 	}
 
+	
 	public void carregar() {
 		InformaticaDAO dao = new InformaticaDAO();
-		InformaticaTO armazenaCodigo = new InformaticaTO();
-		armazenaCodigo.setCodigo(codigo);
-		InformaticaTO to = dao.consultar(armazenaCodigo);
+	//	InformaticaTO armazenaCodigo = new InformaticaTO();
+	//	armazenaCodigo.setCodigo(codigo);
+		InformaticaTO to = dao.carregar(TO);
 
 		codigo = to.getCodigo();
 		nome = to.getNome();
@@ -168,6 +185,8 @@ public class ManterCursoInformatica {
 		registroSoft = to.getRegistroSoft();
 		disponibilidade= to.getDisponibilidade();
 		
+		  System.out.println(registroSoft);
+		
 	}
 
 	
@@ -175,7 +194,7 @@ public class ManterCursoInformatica {
 		InformaticaDAO dao = new InformaticaDAO();
 		InformaticaTO armazenaCodigo = new InformaticaTO();
 		armazenaCodigo.setCodigo(codigo);
-		InformaticaTO TO = dao.consultar(armazenaCodigo);
+		InformaticaTO TO = dao.carregar(armazenaCodigo);
 
 		return TO;
 	}
@@ -196,10 +215,7 @@ public class ManterCursoInformatica {
 		if (getClass() != obj.getClass())
 			return false;
 		ManterCursoInformatica other = (ManterCursoInformatica) obj;
-		if (codigo == null) {
-			if (other.codigo != null)
-				return false;
-		} else if (!codigo.equals(other.codigo))
+		if (codigo != other.codigo)
 			return false;
 		if (dataInicio == null) {
 			if (other.dataInicio != null)
@@ -248,6 +264,8 @@ public class ManterCursoInformatica {
 			return false;
 		return true;
 	}
+
+
 
 
 

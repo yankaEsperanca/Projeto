@@ -4,9 +4,10 @@ import daoArtes.*;
 import to.ArtesTO;
 
 
-public class ManterCursoArtes {
 
-	String codigo, nome, dataInicio, dataTermino, horario, numeroVagas, valor, descricaoMaterial, nomeLivrosUtilizados,disponibilidade;  
+public class ManterCursoArtes {
+	int codigo;
+	String nome, dataInicio, dataTermino, horario, numeroVagas, valor, descricaoMaterial, nomeLivrosUtilizados,disponibilidade;  
 
 
 	public ManterCursoArtes (ArtesTO artesTO){
@@ -25,12 +26,12 @@ public class ManterCursoArtes {
 	}
 
 
-	public String getCodigo() {
+	public int getCodigo() {
 		return codigo;
 	}
 
 
-	public void setCodigo(String codigo) {
+	public void setCodigo(int codigo) {
 		this.codigo = codigo;
 	}
 
@@ -124,6 +125,26 @@ public class ManterCursoArtes {
 		this.disponibilidade = disponibilidade;
 	}
 	
+	
+	public ArtesTO getTO() {
+		ArtesTO to = new ArtesTO();
+
+
+		to.setCodigo(codigo);
+		to.setNome(nome);
+		to.setDataInicio(dataInicio);
+		to.setDataTermino(dataTermino);
+		to.setHorario(horario);
+		to.setNumeroVagas(numeroVagas);
+		to.setValor(valor);
+		to.setDescricaoMaterial(descricaoMaterial);
+		to.setNomeLivrosUtilizados(nomeLivrosUtilizados);
+		to.setDisponibilidade(disponibilidade);
+		return to;
+	}
+	
+	
+	
 	// criar
 		public void cadastrar() {
 			ArtesDAO dao = new ArtesDAO();
@@ -173,7 +194,7 @@ public class ManterCursoArtes {
 			ArtesDAO dao = new ArtesDAO();
 			ArtesTO armazenaCodigo = new ArtesTO();
 			armazenaCodigo.setCodigo(codigo);
-			ArtesTO to = dao.consultar(armazenaCodigo);
+			ArtesTO to = dao.carregar(armazenaCodigo);
 
 			codigo = to.getCodigo();
 			nome = to.getNome();
@@ -194,7 +215,7 @@ public class ManterCursoArtes {
 			ArtesDAO dao = new ArtesDAO();
 			ArtesTO armazenaCodigo = new ArtesTO();
 			armazenaCodigo.setCodigo(codigo);
-			ArtesTO to = dao.consultar(armazenaCodigo);
+			ArtesTO to = dao.carregar(armazenaCodigo);
 
 			return to;
 		}
@@ -206,8 +227,6 @@ public class ManterCursoArtes {
 		}*/
 
 
-	
-
 
 		@Override
 		public boolean equals(Object obj) {
@@ -218,10 +237,7 @@ public class ManterCursoArtes {
 			if (getClass() != obj.getClass())
 				return false;
 			ManterCursoArtes other = (ManterCursoArtes) obj;
-			if (codigo == null) {
-				if (other.codigo != null)
-					return false;
-			} else if (!codigo.equals(other.codigo))
+			if (codigo != other.codigo)
 				return false;
 			if (dataInicio == null) {
 				if (other.dataInicio != null)
@@ -270,5 +286,14 @@ public class ManterCursoArtes {
 				return false;
 			return true;
 		}
+
+ 
+
+
+
+	
+
+
+		
 
 }

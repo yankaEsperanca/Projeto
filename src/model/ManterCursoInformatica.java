@@ -1,6 +1,7 @@
 package model;
 
 
+
 import to.InformaticaTO;
 import daoInformatica.*;
 
@@ -11,7 +12,7 @@ public class ManterCursoInformatica {
 	InformaticaTO TO;
 
 	public ManterCursoInformatica (InformaticaTO informaticaTO){
-		TO = informaticaTO;
+		
 		this.codigo = informaticaTO.getCodigo();
 		this.nome = informaticaTO.getNome();
 		this.dataInicio =  informaticaTO.getDataInicio();
@@ -127,19 +128,13 @@ public class ManterCursoInformatica {
 	public void cadastrar() {
 		InformaticaDAO dao = new InformaticaDAO();
 		InformaticaTO to = new InformaticaTO();
-
-		to.setNome(nome);
-		to.setDataInicio(dataInicio);
-		to.setDataTermino(dataTermino);
-		to.setHorario(horario);
-		to.setNumeroVagas(numeroVagas);
-		to.setValor(valor);
-		to.setNumeroLab(numeroLab);
-		to.setRegistroSoft(registroSoft);
-		to.setDisponibilidade(disponibilidade);
-		
 		dao.inserir(to);
+		this.codigo = to.getCodigo();
+
 	}
+	
+	
+	
 
 	public void alterar() {
 		InformaticaDAO dao = new InformaticaDAO();
@@ -166,16 +161,21 @@ public class ManterCursoInformatica {
 		to.setCodigo(codigo);
 		dao.deletar(to);
 	}
-
+/*public void carregar() {
+		ClienteDAO dao = new ClienteDAO();
+		ClienteTO to = dao.carregar(id);
+		nome = to.getNome();
+		fone = to.getFone();
+		email = to.getEmail();
+	}*/
 	
 	public void carregar() {
 		InformaticaDAO dao = new InformaticaDAO();
-	//	InformaticaTO armazenaCodigo = new InformaticaTO();
-	//	armazenaCodigo.setCodigo(codigo);
-		InformaticaTO to = dao.carregar(TO);
+	   InformaticaTO armazenaCodigo = new InformaticaTO();
+	    armazenaCodigo.setCodigo(codigo);
+		InformaticaTO to = dao.carregar(armazenaCodigo);
 
-		codigo = to.getCodigo();
-		nome = to.getNome();
+	    nome = to.getNome();
 		dataInicio =  to.getDataInicio();
 		dataTermino = to.getDataTermino();
 		horario = to.getHorario();
@@ -184,9 +184,7 @@ public class ManterCursoInformatica {
 		numeroLab = to.getNumeroLab();
 		registroSoft = to.getRegistroSoft();
 		disponibilidade= to.getDisponibilidade();
-		
-		  System.out.println(registroSoft);
-		
+				
 	}
 
 	

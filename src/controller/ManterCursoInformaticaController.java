@@ -78,7 +78,7 @@ public class ManterCursoInformaticaController extends HttpServlet {
 		} else if (pAcao.equals("Editar")) {
 			manterInformatica.carregar();
 			request.setAttribute("infoTO", manterInformatica.getTO());
-			view = request.getRequestDispatcher("AlterarInformatica.jsp");		
+			view = request.getRequestDispatcher("AlterarCursoInformatica.jsp");		
 		}
 
 		view.forward(request, response);

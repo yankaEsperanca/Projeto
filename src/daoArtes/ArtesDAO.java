@@ -105,7 +105,7 @@ public class ArtesDAO {
 			pst.setString(8,artesTO.getNomeLivrosUtilizados());
 			pst.setString(9,artesTO.getDisponibilidade());
 			pst.execute();
-			String sqlSelect = "SELECT LAST_INSERT_CODIGO()";
+			String sqlSelect = "SELECT LAST_INSERT_ID()";
 			try(PreparedStatement stm1 = conn.prepareStatement(sqlSelect);
 					ResultSet rs = stm1.executeQuery();){
 					if(rs.next()){
@@ -170,7 +170,7 @@ public class ArtesDAO {
 			ArtesTO to = new ArtesTO();
 			to.setCodigo(ArtesTO.getCodigo());
 			codigo = ArtesTO.getCodigo();
-			String sqlSelect = "SELECT codigo, nome, dataInicio, dataTermino, horario, numeroVagas, valor, descricaoMaterial, nomeLivrosUtilizados, disponibilidade  FROM dadosCursoArtes WHERE codigo= ?";
+			String sqlSelect = "SELECT nome, dataInicio, dataTermino, horario, numeroVagas, valor, descricaoMaterial, nomeLivrosUtilizados, disponibilidade  FROM dadosCursoArtes WHERE codigo= ?";
 			
 			// usando o try with resources do Java 7, que fecha o que abriu
 			try (Connection conn = ConnectionFactory.obtemConexao();
@@ -179,15 +179,15 @@ public class ArtesDAO {
 				try (ResultSet rs = stm.executeQuery();) {
 					if (rs.next()) {					
 					
-						to.setNome(rs.getString(2)); // o resultset pega o conteudo da descricao e coloca em uma variavel p exibir
-						to.setDataInicio(rs.getString(3));
-						to.setDataTermino(rs.getString(4));
-						to.setHorario(rs.getString(5));
-						to.setNumeroVagas(rs.getString(6));
-						to.setValor(rs.getString(7));
-						to.setDescricaoMaterial(rs.getString(8));
-						to.setNomeLivrosUtilizados(rs.getString(9));          
-						to.setDisponibilidade(rs.getString(10));      
+						to.setNome(rs.getString(1)); // o resultset pega o conteudo da descricao e coloca em uma variavel p exibir
+						to.setDataInicio(rs.getString(2));
+						to.setDataTermino(rs.getString(3));
+						to.setHorario(rs.getString(4));
+						to.setNumeroVagas(rs.getString(5));
+						to.setValor(rs.getString(6));
+						to.setDescricaoMaterial(rs.getString(7));
+						to.setNomeLivrosUtilizados(rs.getString(8));          
+						to.setDisponibilidade(rs.getString(9));      
 					}
 				} catch (SQLException e) {
 					e.printStackTrace();

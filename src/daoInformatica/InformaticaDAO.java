@@ -92,7 +92,7 @@ public class InformaticaDAO  {
 	//INSERIR	
 	public void inserir(InformaticaTO infoTO){ 
 
-		String sqlInsert = "insert into dadosCursoInformatica (nome, dataInicio, dataTermino, horario, numeroVagas, valor, numeroLab, registroSoft, disponibilidade)  VALUES (?,?,?,?,?,?,?,?,?)";
+		String sqlInsert = "INSERT INTO dadosCursoInformatica (nome, dataInicio, dataTermino, horario, numeroVagas, valor, numeroLab, registroSoft, disponibilidade)  VALUES (?,?,?,?,?,?,?,?,?)";
 		try (Connection conn = ConnectionFactory.obtemConexao();
 				PreparedStatement pst = conn.prepareStatement(sqlInsert);) {
 
@@ -107,8 +107,8 @@ public class InformaticaDAO  {
 			pst.setString(7,infoTO.getNumeroLab());
 			pst.setString(8,infoTO.getRegistroSoft());
 			pst.setString(9,infoTO.getDisponibilidade());
-			pst.executeUpdate();
-			String sqlSelect = "SELECT LAST_INSERT_CODIGO()";
+			pst.execute();
+			String sqlSelect = "SELECT LAST_INSERT_ID()";
 			try(PreparedStatement stm1 = conn.prepareStatement(sqlSelect);
 					ResultSet rs = stm1.executeQuery();){
 					if(rs.next()){
@@ -158,7 +158,7 @@ public class InformaticaDAO  {
 			pst.setString(8,infoTO.getRegistroSoft());
 			pst.setString(9,infoTO.getDisponibilidade());
 			pst.setInt(10,infoTO.getCodigo());
-			pst.executeUpdate();
+			pst.execute();
 
 		} 
 		catch(Exception e) {
@@ -180,22 +180,17 @@ public class InformaticaDAO  {
 			stm.setInt(1, codigo);
 			try (ResultSet rs = stm.executeQuery();) {
 				if (rs.next()) {					
-					too.setNome(rs.getString(2)); // o resultset pega o conteudo da descricao e coloca em uma variavel p exibir
-					too.setDataInicio(rs.getString(3));
-					too.setDataTermino(rs.getString(4));
-					too.setHorario(rs.getString(5));
-					too.setNumeroVagas(rs.getString(6));
-					too.setValor(rs.getString(7));
-					too.setNumeroLab(rs.getString(8));
-					too.setRegistroSoft(rs.getString(9));          
-					too.setDisponibilidade(rs.getString(10));      
+					too.setNome(rs.getString(1)); // o resultset pega o conteudo da descricao e coloca em uma variavel p exibir
+					too.setDataInicio(rs.getString(2));
+					too.setDataTermino(rs.getString(3));
+					too.setHorario(rs.getString(4));
+					too.setNumeroVagas(rs.getString(5));
+					too.setValor(rs.getString(6));
+					too.setNumeroLab(rs.getString(7));
+					too.setRegistroSoft(rs.getString(8));          
+					too.setDisponibilidade(rs.getString(9));      
 					
-					
-
-					System.out.println(too.getNome());
-					System.out.println(too.getDataInicio());
-					
-				
+		
 				}
 			} catch (SQLException e) {
 				e.printStackTrace();

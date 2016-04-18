@@ -1,7 +1,10 @@
+<%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8" %>
+<%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
+
 <!DOCTYPE html>
 <html>
 <head>
-<title> Alunos </title>
+<title> Curso Artes </title>
 
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
@@ -13,38 +16,9 @@
 </head>
 <body>
 
-<!--  menu -->
-
-	<!-- Barra superior com os menus de navegação -->
-	<nav class="navbar navbar-inverse navbar-fixed-top">
-		<div class="container-fluid">
-			<div class="navbar-header">
-				<button type="button" class="navbar-toggle collapsed"
-					data-toggle="collapse" data-target="#navbar" aria-expanded="false"
-					aria-controls="navbar">
-					<span class="sr-only">Toggle navigation</span> <span
-						class="icon-bar"></span> <span class="icon-bar"></span> <span
-						class="icon-bar"></span>
-				</button>
-				<a class="navbar-brand" href="listar_curso_artes.html">Curso Artes</a>
-				<!-- nome que estará no menu, e o href chama outra paginca -->
-			</div>
-			<div id="navbar" class="navbar-collapse collapse">
-				<ul class="nav navbar-nav navbar-right">
-					<li><a href="listar_aluno.html">Aluno</a></li>
-					<!-- Quando clicar ele direciona para a outra pagina criada em HTML -->
-					<li><a href="listar_curso_artes.html">Curso Artes</a></li>
-					<!-- montamos os nomes que terão no nosso menu bar -->
-					<li><a href="listar_curso_informatica.html">Curso Informática</a></li>
-					<li><a href="#">Matrícula</a></li>
-				</ul>
-			</div>
-		</div>
-	</nav>
-	<br>
-	<br>
-	<br>
 	
+ <!-- Barra superior com os menus de navegação -->
+	<c:import url="Menu.jsp"/>
 
 <!-- container principal -->
 	<div id="main" class="container">

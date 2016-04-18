@@ -1,5 +1,6 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8" %>
-    <%@ page import="to.ArtesTO" %>
+<%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
+
         <!DOCTYPE html>
         <html lang="pt-br">
 
@@ -14,7 +15,7 @@
         </head>
 
         <body>
-            <%ArtesTO to=(ArtesTO)request.getAttribute("artesTO"); %>
+            
                 <!-- Modal -->
                 <div class="modal fade" id="delete-modal" tabindex="-1" role="dialog" aria-labelledby="modalLabel">
                     <div class="modal-dialog" role="document">
@@ -22,14 +23,14 @@
                             <div class="modal-header">
                                 <button type="button" class="close" data-dismiss="modal" aria-label="Fechar"><span aria-hidden="true">&times;</span>
                                 </button>
-                                <h4 class="modal-title" id="modalLabel">Excluir curso artes</h4>
+                                <h4 class="modal-title" id="modalLabel">Excluir Curso</h4>
                             </div>
                             <div class="modal-body">
-                                Deseja realmente excluir este curso?
+                                Deseja realmente excluir?
                             </div>
                             <div class="modal-footer">
-                                <form action="ManterCursoArtesController.do" method="post">
-                                    <input type="hidden" name="codigo" value="<%=to.getCodigo()%>" />
+                                <form action="ManterCliente.do" method="post">
+                                    <input type="hidden" name="id" value="${artesTO.codigo}" />
                                     <button type="submit" class="btn btn-primary" name="acao" value="Excluir">Sim</button>
                                     <button type="button" class="btn btn-default" data-dismiss="modal">N&atilde;o</button>
                                 </form>
@@ -37,105 +38,74 @@
                         </div>
                     </div>
                 </div>
-                <!-- /.modal -->
+
+                <!-- Barra superior com os menus de navegação -->
+				<c:import url="Menu.jsp"/>               
                 
-              
-	<!-- Barra superior com os menus de navegação -->
-	<nav class="navbar navbar-inverse navbar-fixed-top">
-		<div class="container-fluid">
-			<div class="navbar-header">
-				<button type="button" class="navbar-toggle collapsed"
-					data-toggle="collapse" data-target="#navbar" aria-expanded="false"
-					aria-controls="navbar">
-					<span class="sr-only">Toggle navigation</span> <span
-						class="icon-bar"></span> <span class="icon-bar"></span> <span
-						class="icon-bar"></span>
-				</button>
-				<a class="navbar-brand" href="listar_curso_artes.html"> Curso Artes</a>
-				<!-- nome que estará no menu, e o href chama outra paginca -->
-			</div>
-			<div id="navbar" class="navbar-collapse collapse">
-				<ul class="nav navbar-nav navbar-right">
-					<li><a href="listar_aluno.html">Aluno</a></li>
-					<!-- Quando clicar ele direciona para a outra pagina criada em HTML -->
-					<li><a href="listar_curso_artes.html">Curso Artes</a></li>
-					<!-- montamos os nomes que terão no nosso menu bar -->
-					<li><a href="listar_curso_informatica.html">Curso Informática</a></li>
-					<li><a href="#">Matrícula</a></li>
-				</ul>
-			</div>
-		</div>
-	</nav>
-	<br>
-	<br>
-	<br>
-                
-                
-                
-                
-                <!-- Container Principal -->
+    
+                    <!-- Container Principal -->
                 <div id="main" class="container">
-                    <h3 class="page-header">Visualizar Curso, Código: <%=to.getCodigo() %></h3>
+                    <h3 class="page-header">Visualizar Curso, Código:${artesTO.codigo}</h3>
                     <div class="row">
                         
                           <div class="col-md-12">
                             <p><strong>Código:</strong>
-                             <%=to.getCodigo()%>
+                             ${artesTO.codigo}
                             </p>
                         </div>
                         
                             <div class="col-md-12">
                             <p><strong>Nome:</strong>
-                             <%=to.getNome()%>
+                             ${artesTO.nome}
                             </p>
                         </div>
                         
                         <div class="col-md-12">
                             <p><strong>Data início:</strong>
-                             <%=to.getDataInicio()%>
+                       		${artesTO.dataInicio}
                             </p>
                         </div>
                         
                           <div class="col-md-12">
                             <p><strong>Data término:</strong>
-                             <%=to.getDataTermino()%>
+                            ${artesTO.dataTermino}
                             </p>
                         </div>
                         
                           <div class="col-md-12">
                             <p><strong>Horário:</strong>
-                             <%=to.getHorario()%>
+                             ${artesTO.horario}
                             </p>
                         </div>
                         
                           <div class="col-md-12">
                             <p><strong>Número de vagas:</strong>
-                             <%=to.getNumeroVagas()%>
+                             ${artesTO.numeroVagas}
                             </p>
                         </div>
                         
                           <div class="col-md-12">
                             <p><strong>Valor:</strong>
-                             <%=to.getValor()%>
+                             ${artesTO.valor}
                             </p>
                         </div>
                         
                           <div class="col-md-12">
                             <p><strong>Descrição material:</strong>
-                             <%=to.getDescricaoMaterial()%>
+                             ${artesTO.descricaoMaterial}
                             </p>
                         </div>
                         
                         
                           <div class="col-md-12">
                             <p><strong>Nome dos livros utilizados:</strong>
-                           <%=to.getNomeLivrosUtilizados()%>
+                           ${artesTO.nomeLivrosUtilizados}
                             </p>
                         </div>
                         
                           <div class="col-md-12">
                             <p><strong>Disponibilidade:</strong>
-                             <%=to.getDisponibilidade()%>
+                             ${artesTO.disponibilidade}
                             </p>
                         </div>         
                           </div>
@@ -143,9 +113,9 @@
                     
                     <div id="actions" class="row">
                         <div class="col-md-12">
-                            <a href="ManterCursoArtesController.do?acao=Editar&codigo=<%=to.getCodigo()%>" class="btn btn-primary">Editar</a>
+                            <a href="ManterCursoArtesController.do?acao=Editar&codigo=${artesTO.codigo}" class="btn btn-primary">Editar</a>
                             <a href="#" class="btn btn-danger" data-toggle="modal" data-target="#delete-modal">Excluir</a>
-                            <a href="listar_curso_artes.html" class="btn btn-default">Voltar</a>
+                            <a href="ListarArtes.jsp" class="btn btn-default">Voltar</a>
                         </div>
                     </div>
                 </div>

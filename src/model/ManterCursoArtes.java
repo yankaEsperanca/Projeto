@@ -1,5 +1,6 @@
 package model;
 
+
 import daoArtes.*;
 import to.ArtesTO;
 
@@ -126,30 +127,17 @@ public class ManterCursoArtes {
 	}
 	
 	
-	public ArtesTO getTO() {
-		ArtesTO to = new ArtesTO();
 
-
-		to.setCodigo(codigo);
-		to.setNome(nome);
-		to.setDataInicio(dataInicio);
-		to.setDataTermino(dataTermino);
-		to.setHorario(horario);
-		to.setNumeroVagas(numeroVagas);
-		to.setValor(valor);
-		to.setDescricaoMaterial(descricaoMaterial);
-		to.setNomeLivrosUtilizados(nomeLivrosUtilizados);
-		to.setDisponibilidade(disponibilidade);
-		return to;
-	}
-	
-	
 	
 	// criar
 		public void cadastrar() {
 			ArtesDAO dao = new ArtesDAO();
+			ArtesTO to = getTO();
+			dao.inserir(to);
+			this.codigo = to.getCodigo();
+		}
+		public ArtesTO getTO() {
 			ArtesTO to = new ArtesTO();
-
 			to.setCodigo(codigo);
 			to.setNome(nome);
 			to.setDataInicio(dataInicio);
@@ -160,32 +148,18 @@ public class ManterCursoArtes {
 			to.setDescricaoMaterial(descricaoMaterial);
 			to.setNomeLivrosUtilizados(nomeLivrosUtilizados);
 			to.setDisponibilidade(disponibilidade);
-			
-			dao.inserir(to);
+			return to;
 		}
-
+		
 		public void alterar() {
 			ArtesDAO dao = new ArtesDAO();
-			ArtesTO to = new ArtesTO();
-
-			to.setCodigo(codigo);
-			to.setNome(nome);
-			to.setDataInicio(dataInicio);
-			to.setDataTermino(dataTermino);
-			to.setHorario(horario);
-			to.setNumeroVagas(numeroVagas);
-			to.setValor(valor);
-			to.setDescricaoMaterial(descricaoMaterial);
-			to.setNomeLivrosUtilizados(nomeLivrosUtilizados);
-			to.setDisponibilidade(disponibilidade);
-
+			ArtesTO to = getTO();
 			dao.alterar(to);
 		}
 
 		public void deletar() {
 			ArtesDAO dao = new ArtesDAO();
 			ArtesTO to = new ArtesTO();
-
 			to.setCodigo(codigo);
 			dao.deletar(to);
 		}
@@ -219,14 +193,6 @@ public class ManterCursoArtes {
 
 			return to;
 		}
-		/*
-		public String consultarTodos(){
-			ArtesDAO dao = new ArtesDAO();
-			String resp = dao.consultarTodos();
-			return resp;
-		}*/
-
-
 
 		@Override
 		public boolean equals(Object obj) {
@@ -286,12 +252,6 @@ public class ManterCursoArtes {
 				return false;
 			return true;
 		}
-
- 
-
-
-
-	
 
 
 		

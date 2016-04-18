@@ -1,3 +1,7 @@
+<%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8" %>
+<%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
+
+
 <!DOCTYPE html>
 <html>
 <head>
@@ -13,40 +17,9 @@
 </head>
 <body>
 
-
-<!--  menu -->
-
-	<!-- Barra superior com os menus de navegação -->
-	<nav class="navbar navbar-inverse navbar-fixed-top">
-		<div class="container-fluid">
-			<div class="navbar-header">
-				<button type="button" class="navbar-toggle collapsed"
-					data-toggle="collapse" data-target="#navbar" aria-expanded="false"
-					aria-controls="navbar">
-					<span class="sr-only">Toggle navigation</span> <span
-						class="icon-bar"></span> <span class="icon-bar"></span> <span
-						class="icon-bar"></span>
-				</button>
-				<a class="navbar-brand" href="listar_aluno.html">Alunos</a>
-				<!-- nome que estará no menu, e o href chama outra paginca -->
-			</div>
-			<div id="navbar" class="navbar-collapse collapse">
-				<ul class="nav navbar-nav navbar-right">
-					<li><a href="listar_aluno.html">Aluno</a></li>
-					<!-- Quando clicar ele direciona para a outra pagina criada em HTML -->
-					<li><a href="listar_curso_artes.html">Curso Artes</a></li>
-					<!-- montamos os nomes que terão no nosso menu bar -->
-					<li><a href="listar_curso_informatica.html">Curso Informática</a></li>
-					<li><a href="#">Países</a></li>
-				</ul>
-			</div>
-		</div>
-	</nav>
-	<br>
-	<br>
-	<br>
+ <!-- Barra superior com os menus de navegação -->
+	<c:import url="Menu.jsp"/>
 	
-
 <!-- container principal -->
 	<div id="main" class="container">
 		<h2>Cadastro de alunos</h2>
@@ -76,8 +49,8 @@
 			</div>
 			
 			<div class="form-group col-md-6">
-				<label for="endereco"> Endereço: </label><br>
-				 <input type="text" class="form-control" name="endereco" size="40" maxlength="50" placeholder="endereço">
+				<label for="endereco"> EndereÃ§o: </label><br>
+				 <input type="text" class="form-control" name="endereco" size="40" maxlength="50" placeholder="endereÃ§o">
 			</div>
 			
 			
@@ -87,8 +60,8 @@
 			</div>
 	
 			<div class="form-group col-md-6">
-				<label for="usuario"> Usuário: </label> <br> 
-				<input type="text" class="form-control" name="usuario" size="40" maxlength="20" placeholder="usuário">
+				<label for="usuario"> UsuÃ¡rio: </label> <br> 
+				<input type="text" class="form-control" name="usuario" size="40" maxlength="20" placeholder="usuÃ¡rio">
 			</div>
 	
 			<div class="form-group col-md-6">

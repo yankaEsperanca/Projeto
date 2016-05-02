@@ -33,6 +33,8 @@ public class InformaticaDAO  {
 				while(rs.next()) {
 					to = new InformaticaTO();
 					
+				
+			
 					to.setCodigo(rs.getInt("codigo"));
 					to.setNome(rs.getString(2)); // o resultset pega o conteudo da descricao e coloca em uma variavel p exibir
 					to.setDataInicio(rs.getString(3));
@@ -57,7 +59,7 @@ public class InformaticaDAO  {
 	public ArrayList<InformaticaTO> listarCursoInformatica(String chave) {
 		InformaticaTO to;
 		ArrayList<InformaticaTO> lista = new ArrayList<>();
-		String sqlSelect = "SELECT codigo, nome, dataInicio, dataTermino, horario, numeroVagas, valor, descricaoMaterial, nomeLivrosUtilizados, disponibilidade  FROM dadosCursoArtes where upper(nome) like ?";
+		String sqlSelect = "SELECT codigo, nome, dataInicio, dataTermino, horario, numeroVagas, valor, numeroLab, registroSoft, disponibilidade  FROM dadosCursoInformatica where upper(nome) like ?";
 		
 		// usando o try with resources do Java 7, que fecha o que abriu
 		try (Connection conn = ConnectionFactory.obtemConexao();

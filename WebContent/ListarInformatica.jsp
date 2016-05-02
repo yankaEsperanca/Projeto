@@ -1,5 +1,4 @@
-<%@ page language="java" contentType="text/html; charset=UTF-8"
-	pageEncoding="UTF-8"%>
+<%@ page language="java" contentType="text/html; charset=UTF-8"	pageEncoding="UTF-8"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
 
 <!DOCTYPE html>
@@ -18,24 +17,21 @@
 
 <body>
 	<!-- Modal -->
-	<div class="modal fade" id="delete-modal" tabindex="-1" role="dialog"
-		aria-labelledby="modalLabel">
+	<div class="modal fade" id="delete-modal" tabindex="-1" role="dialog" aria-labelledby="modalLabel">
 		<div class="modal-dialog" role="document">
 			<div class="modal-content">
 				<div class="modal-header">
-					<button type="button" class="close" data-dismiss="modal"
-						aria-label="Fechar">
-						<span aria-hidden="true">&times;</span>
+					<button type="button" class="close" data-dismiss="modal" aria-label="Fechar"><span aria-hidden="true">&times;</span>
 					</button>
-					<h4 class="modal-title" id="modalLabel">Excluir Curso
-						Informática</h4>
+					<h4 class="modal-title" id="modalLabel">Excluir Curso Informática</h4>
 				</div>
-				<div class="modal-body">Deseja realmente excluir este curso?</div>
+				<div class="modal-body">
+				Deseja realmente excluir este curso?
+				</div>
 				<div class="modal-footer">
 					<form action="ManterCursoInformaticaController.do" method="post">
 						<input type="hidden" name="id" id="id_excluir" />
-						<button type="submit" class="btn btn-primary" name="acao"
-							value="Deletar">Sim</button>
+						<button type="submit" class="btn btn-primary" name="acao" value="Excluir">Sim</button>
 						<button type="button" class="btn btn-default" data-dismiss="modal">N&atilde;o</button>
 					</form>
 				</div>
@@ -43,7 +39,6 @@
 		</div>
 	</div>
 	<!-- /.modal -->
-
 	<!--  menu -->
 
 	<!-- Barra superior com os menus de navegação -->
@@ -61,11 +56,9 @@
 				<div class="col-md-6">
 
 					<div class="input-group h2">
-						<input name="data[search]" class="form-control" id="search"
-							type="text"
-							placeholder="Pesquisar cursos de informática (deixe vazio para trazer todos)">
+						<input name="data[search]" class="form-control" id="search" type="text" placeholder="Pesquisar cursos de informática (deixe vazio para trazer todos)">
 						<span class="input-group-btn">
-							<button class="btn btn-primary" type="submit">
+							<button class="btn btn-primary" type="submit" name="acao" value="buscar">
 								<span class="glyphicon glyphicon-search"></span>
 							</button>
 						</span>
@@ -73,8 +66,7 @@
 				</div>
 
 				<div class="col-md-3">
-					<a href="CadastrarInformatica.jsp"
-						class="btn btn-primary pull-right h2">Cadastrar Curso</a>
+					<a href="CadastrarInformatica.jsp" class="btn btn-primary pull-right h2">Cadastrar Curso</a>
 				</div>
 			</div>
 
@@ -118,14 +110,11 @@
 								<td>${infoTO.disponibilidade}</td>
 
 
-								<td class="actions"><a class="btn btn-success btn-xs"
-									href="ManterCursoInformaticaController.do?acao=Consultar&codigo=${infoTO.codigo}">Visualizar</a>
-									<a class="btn btn-warning btn-xs"
-									href="ManterCursoInformaticaController.do?acao=Editar&codigo=${infoTO.codigo}">Editar</a>
+								<td class="actions">
+								<a class="btn btn-success btn-xs" href="ManterCursoInformaticaController.do?acao=Consultar&codigo=${infoTO.codigo}">Visualizar</a>
+						    	<a class="btn btn-warning btn-xs" href="ManterCursoInformaticaController.do?acao=Editar&codigo=${infoTO.codigo}">Editar</a>
 
-									<button id="btn${infoTO.codigo}" type="button"
-										class="btn btn-danger btn-xs" data-toggle="modal"
-										data-target="#delete-modal" data-cliente="${infoTO.codigo}">Excluir</button>
+								<button id="btn${infoTO.codigo}%>" type="button" class="btn btn-danger btn-xs" data-toggle="modal" data-target="#delete-modal" data-cliente="${infoTO.codigo}">Excluir</button>
 
 
 								</td>

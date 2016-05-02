@@ -29,7 +29,6 @@ public class CursoArtesModelTest {
 		ArtesTO to = new ArtesTO();
 
 		
-		to.setCodigo("Artes201601");
 		to.setNome("Curso de artes simples");
 		to.setDataInicio("22/03/2016");
 		to.setDataTermino("22/03/2017");
@@ -51,7 +50,6 @@ public class CursoArtesModelTest {
 		//insert into cliente (nome, fone) values ('nome1', 'fone1');
 		ArtesTO artes = new ArtesTO();
 		
-		artes.setCodigo("Artes I");
 		artes.setNome("Artes I");
 		artes.setDataInicio("02022016");
 		artes.setDataTermino("06072016");
@@ -64,7 +62,7 @@ public class CursoArtesModelTest {
 		
 
 		ArtesTO busca = new ArtesTO();
-		busca.setCodigo("Artes I");
+		busca.setNome("Artes I");
 
 		ManterCursoArtes fixture = new ManterCursoArtes(artes);
 		ManterCursoArtes novo = new ManterCursoArtes(busca);
@@ -91,7 +89,6 @@ public class CursoArtesModelTest {
 	@Test
 	public void test03Excluir() {
 
-		artes.setCodigo(null);
 		artes.setNome(null);
 		artes.setDataInicio(null);
 		artes.setDataTermino(null);
@@ -103,7 +100,6 @@ public class CursoArtesModelTest {
 		artes.setDisponibilidade(null);
 		
 		
-		copia.setCodigo(null);
 		copia.setNome(null);
 		copia.setDataInicio(null);
 		copia.setDataTermino(null);

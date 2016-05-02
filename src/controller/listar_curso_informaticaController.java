@@ -9,7 +9,7 @@ import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
-//import javax.servlet.http.HttpSession;
+import javax.servlet.http.HttpSession;
 import model.ListarInformatica;
 import to.*; 
 /**
@@ -23,17 +23,24 @@ public class listar_curso_informaticaController extends HttpServlet {
 	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse response)
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+		
+		request.setCharacterEncoding("UTF-8");
 		String chave = request.getParameter("data[search]");
+		String acao = request.getParameter("acao");
 		ListarInformatica lI = new ListarInformatica();
-		ArrayList<InformaticaTO> lista;
-		if(chave != null && chave.length() > 0){
-			lista = lI.listarInformatica(chave);
+		ArrayList<InformaticaTO> lista =null;
+		HttpSession session = request.getSession();  // temos que iniciar a seção
+		if (acao.equals("buscar")) {
+			if(chave != null && chave.length() > 0){
+				lista = lI.listarInformatica(chave);
+			} else {				
+				lista = lI.listarInformatica();
+			}
+			session.setAttribute("lista", lista);
+		} else if (acao.equals("reiniciar")) {
+			session.setAttribute("lista", null);
 		}
-		else {				
-			lista = lI.listarInformatica();
-		}
-
-		request.setAttribute("lista", lista);
+//		request.setAttribute("lista", lista);
 		RequestDispatcher dispatcher = request.getRequestDispatcher("ListarInformatica.jsp");
 		dispatcher.forward(request, response);
 	}

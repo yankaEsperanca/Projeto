@@ -30,8 +30,6 @@ public class ArtesDAOTest {
 			dao = new ArtesDAO();
 			to = new ArtesTO();
 					
-			
-			to.setCodigo("Artes201601");
 			to.setNome("Curso de artes simples");
 			to.setDataInicio("22/03/2016");
 			to.setDataTermino("22/03/2017");
@@ -50,7 +48,6 @@ public class ArtesDAOTest {
 			//insert into cliente (nome, fone) values ('nome1', 'fone1');
 			ArtesTO fixture = new ArtesTO();
 					
-			fixture.setCodigo("Artes I");
 			fixture.setNome("Artes I");
 			fixture.setDataInicio("02022016");
 			fixture.setDataTermino("06072016");
@@ -60,14 +57,14 @@ public class ArtesDAOTest {
 			fixture.setDescricaoMaterial("pincéis");
 			fixture.setNomeLivrosUtilizados("livros de artes");
 			fixture.setDisponibilidade("Disponível");
-			ArtesTO novo = dao.consultar(fixture);
+			ArtesTO novo = dao.carregar(fixture);
 			assertEquals("testa inclusao", novo, fixture);
 		}
 
 		@Test
 		public void test01Inserir() {
 			dao.inserir(to);
-			ArtesTO novo = dao.consultar(to);
+			ArtesTO novo = dao.carregar(to);
 			assertEquals("testa inclusao", novo, to);
 		}
 
@@ -75,13 +72,13 @@ public class ArtesDAOTest {
 		public void test02Atualizar() {
 			to.setValor("550.00");
 			dao.alterar(to);
-			ArtesTO novo = dao.consultar(to);
+			ArtesTO novo = dao.carregar(to);
 			assertEquals("testa inclusao", novo, to);
 		}
 
 		@Test
 		public void test03Excluir() {
-			to.setCodigo(null);
+			
 			to.setNome(null);
 			to.setDataInicio(null);
 			to.setDataTermino(null);
@@ -93,8 +90,7 @@ public class ArtesDAOTest {
 			to.setDisponibilidade(null);
 
 			dao.deletar(to);
-			ArtesTO novo = dao.consultar(to);
-			novo.setCodigo(null);
+			ArtesTO novo = dao.carregar(to);
 			novo.setNome(null);
 			novo.setDataInicio(null);
 			novo.setDataTermino(null);

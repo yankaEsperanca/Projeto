@@ -55,7 +55,7 @@
                             <div class="input-group h2">
                                 <input name="data[search]" class="form-control" id="search" type="text" placeholder="Pesquisar Curso artes (deixe vazio para trazer todos)">
                                 <span class="input-group-btn">
-                <button class="btn btn-primary" type="submit">
+                <button class="btn btn-primary" type="submit" name="acao" value="buscar">
                     <span class="glyphicon glyphicon-search"></span>
                                 </button>
                                 </span>
@@ -107,14 +107,11 @@
 							<td>${artesTO.nomeLivrosUtilizados}</td>
 							<td>${artesTO.disponibilidade}</td>
 
-                                       <td class="actions"><a class="btn btn-success btn-xs"
-								href="ManterCursoArtesController.do?acao=Consultar&codigo=${artesTO.codigo}">Visualizar</a>
-								<a class="btn btn-warning btn-xs"
-								href="ManterCursoArtesController.do?acao=Editar&codigo=${artesTO.codigo}">Editar</a>
+                                  <td class="actions">
+                               <a class="btn btn-success btn-xs" href="ManterCursoArtesController.do?acao=Consultar&codigo=${artesTO.codigo}">Visualizar</a>
+								<a class="btn btn-warning btn-xs" href="ManterCursoArtesController.do?acao=Editar&codigo=${artesTO.codigo}">Editar</a>
 								
-								<button id="btn${artesTO.codigo}" type="button"
-									class="btn btn-danger btn-xs" data-toggle="modal"
-									data-target="#delete-modal" data-cliente="${artesTO.codigo}">Excluir</button>
+								<button id="btn${artesTO.codigo}" type="button"	class="btn btn-danger btn-xs" data-toggle="modal" data-target="#delete-modal" data-cliente="${artesTO.codigo}">Excluir</button>
 							</td>
 						</tr>
 					</c:forEach>

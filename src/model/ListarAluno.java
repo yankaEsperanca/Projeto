@@ -22,7 +22,11 @@ public class ListarAluno {
 		else {
 			lista = dao.listarAluno(chave);
 		}
+
 		return lista;
+		
+		
+		
 	}
 			
 	

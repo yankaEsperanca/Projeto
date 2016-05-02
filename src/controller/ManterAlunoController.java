@@ -10,6 +10,8 @@ import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
+
 import to.*;
 import model.ManterAluno;
 /**
@@ -33,9 +35,7 @@ public class ManterAlunoController extends HttpServlet {
 	 */
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 
-		//Para poder exibir os textos.
-		//	PrintWriter out = response.getWriter();
-
+		request.setCharacterEncoding("UTF-8");
 		String pAcao = request.getParameter("acao");
 
 		AlunoTO alunoTO = new AlunoTO();
@@ -51,18 +51,27 @@ public class ManterAlunoController extends HttpServlet {
 
 		ManterAluno manterAluno = new ManterAluno(alunoTO);
 		RequestDispatcher view = null;
-
+		HttpSession session = request.getSession();
+		
 		if (pAcao.equals("Criar")) {
 			manterAluno.cadastrar();
 			ArrayList<AlunoTO> lista = new ArrayList<>();
-			lista.add(manterAluno.getTO());
-			request.setAttribute("lista", lista);
+			lista.add(manterAluno.getTO());	
+			session.setAttribute("lista", lista);
 			view = request.getRequestDispatcher("ListarAluno.jsp");
 		} else if (pAcao.equals("Excluir")) {
 			manterAluno.deletar();
-			view = request.getRequestDispatcher("listar_aluno.html");			
+			ArrayList<AlunoTO> lista = (ArrayList<AlunoTO>)session.getAttribute("lista");
+			lista.remove(busca(manterAluno, lista));
+			session.setAttribute("lista", lista);
+			view = request.getRequestDispatcher("ListarAluno.jsp");			
 		} else if (pAcao.equals("Alterar")) {
 			manterAluno.alterar();
+			ArrayList<AlunoTO> lista = (ArrayList<AlunoTO>)session.getAttribute("lista");
+			int pos = busca(manterAluno, lista);
+			lista.remove(pos);
+			lista.add(pos, manterAluno.getTO());
+			session.setAttribute("lista", lista);
 			request.setAttribute("alunoTO", manterAluno.getTO());
 			view = request.getRequestDispatcher("VisualizarAluno.jsp");			
 		} else if (pAcao.equals("Consultar")) {
@@ -76,5 +85,16 @@ public class ManterAlunoController extends HttpServlet {
 		}
 
 		view.forward(request, response);
+	}
+	
+	public int busca(ManterAluno manterAluno, ArrayList<AlunoTO> lista) {
+		AlunoTO to;
+		for(int i = 0; i < lista.size(); i++){
+			to = lista.get(i);
+			if(to.getCpf() == manterAluno.getCpf()){
+				return i;
+			}
+		}
+		return -1;
 	}
 }

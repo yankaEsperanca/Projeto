@@ -10,6 +10,7 @@ import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
 import model.ManterCursoInformatica;
 import to.InformaticaTO;
 
@@ -32,8 +33,7 @@ public class ManterCursoInformaticaController extends HttpServlet {
 	 * @see HttpServlet#doPost(HttpServletRequest request, HttpServletResponse response)
 	 */
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		//Para poder exibir os textos.
-	//	PrintWriter out = response.getWriter();
+		request.setCharacterEncoding("UTF-8");
 		String pAcao = request.getParameter("acao");
 		InformaticaTO infoTO = new InformaticaTO();
 			
@@ -57,20 +57,31 @@ public class ManterCursoInformaticaController extends HttpServlet {
 
 		ManterCursoInformatica manterInformatica = new ManterCursoInformatica(infoTO);
 		RequestDispatcher view = null;
-
+		HttpSession session = request.getSession(); // aqui estamos inicializando uma seção, com nome de session
+		
 		if (pAcao.equals("Criar")) {
 			manterInformatica.cadastrar();
 			ArrayList<InformaticaTO> lista = new ArrayList<>();
 			lista.add(manterInformatica.getTO());
-			request.setAttribute("lista", lista);
-			view = request.getRequestDispatcher("ListarInformatica.jsp");
+			session.setAttribute("lista", lista);
+			view = request.getRequestDispatcher("ListarInformatica.jsp");		
 		} else if (pAcao.equals("Excluir")) {
+		
 			manterInformatica.deletar();
-			view = request.getRequestDispatcher("listar_curso_informatica.html");			
+			ArrayList<InformaticaTO> lista = (ArrayList<InformaticaTO>)session.getAttribute("lista");
+			lista.remove(busca(manterInformatica, lista));
+			session.setAttribute("lista", lista);
+			view = request.getRequestDispatcher("ListarInformatica.jsp");
 		} else if (pAcao.equals("Alterar")) {
 			manterInformatica.alterar();
-			request.setAttribute("infoTO", manterInformatica.getTO());
-			view = request.getRequestDispatcher("VisualizarInformatica.jsp");			
+		    ArrayList<InformaticaTO> lista = (ArrayList<InformaticaTO>)session.getAttribute("lista");
+		    int pos = busca(manterInformatica, lista);
+			lista.remove(pos);
+			lista.add(pos, manterInformatica.getTO());
+			session.setAttribute("lista", lista);
+			request.setAttribute("infoTO", manterInformatica.getTO());		
+			view = request.getRequestDispatcher("VisualizarInformatica.jsp");
+			
 		} else if (pAcao.equals("Consultar")) {
 			manterInformatica.carregar();
 			request.setAttribute("infoTO", manterInformatica.getTO());
@@ -82,6 +93,16 @@ public class ManterCursoInformaticaController extends HttpServlet {
 		}
 
 		view.forward(request, response);
+	}
+	public int busca(ManterCursoInformatica manterInfo, ArrayList<InformaticaTO> lista) {
+		InformaticaTO to;
+		for(int i = 0; i < lista.size(); i++){
+			to = lista.get(i);
+			if(to.getCodigo() == manterInfo.getCodigo()){
+				return i;
+			}
+		}
+		return -1;
 	}
 }
 		

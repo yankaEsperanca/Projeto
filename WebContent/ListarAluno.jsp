@@ -52,7 +52,7 @@
                             <div class="input-group h2">
                                 <input name="data[search]" class="form-control" id="search" type="text" placeholder="Pesquisar Alunos (deixe vazio para trazer todos)">
                                 <span class="input-group-btn">
-                <button class="btn btn-primary" type="submit">
+                <button class="btn btn-primary" type="submit" name="acao" value="buscar">
                     <span class="glyphicon glyphicon-search"></span>
                                 </button>
                                 </span>
@@ -66,7 +66,8 @@
                     <!-- /#top -->
                 </form>
                 <hr />
-               <c:if test="${not empty lista}">   
+               <c:if test="${not empty lista}"> 
+                  
                 <div id="list" class="row">
 
                     <div class="table-responsive col-md-12">

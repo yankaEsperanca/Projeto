@@ -1,16 +1,16 @@
 package controller;
 
+
 import model.ManterCursoArtes;
 import java.io.IOException;
-//import java.io.PrintWriter;
 import java.util.ArrayList;
-
 import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
 import to.*;
 
 
@@ -61,18 +61,27 @@ public class ManterCursoArtesController extends HttpServlet {
 		
 		ManterCursoArtes manterArtes = new ManterCursoArtes(artesTO);		
 		RequestDispatcher view = null;
-
-		if (pAcao.equals("Criar")) {
+		HttpSession session = request.getSession();
+		
+		if (pAcao.equals("Criar")) {		
 			manterArtes.cadastrar();
 			ArrayList<ArtesTO> lista = new ArrayList<>();
 			lista.add(manterArtes.getTO());
-			request.setAttribute("lista", lista);
+			session.setAttribute("lista", lista);
 			view = request.getRequestDispatcher("ListarArtes.jsp");
 		} else if (pAcao.equals("Excluir")) {
 			manterArtes.deletar();
-			view = request.getRequestDispatcher("listar_curso_artes.html");			
+			ArrayList<ArtesTO> lista = (ArrayList<ArtesTO>)session.getAttribute("lista");
+			lista.remove(busca(manterArtes, lista));
+			session.setAttribute("lista", lista);
+			view = request.getRequestDispatcher("ListarArtes.jsp");			
 		} else if (pAcao.equals("Alterar")) {
 			manterArtes.alterar();
+			ArrayList<ArtesTO> lista = (ArrayList<ArtesTO>)session.getAttribute("lista");
+			int pos = busca(manterArtes, lista);
+			lista.remove(pos);
+			lista.add(pos, manterArtes.getTO());
+			session.setAttribute("lista", lista);
 			request.setAttribute("artesTO", manterArtes.getTO());
 			view = request.getRequestDispatcher("VisualizarArtes.jsp");			
 		} else if (pAcao.equals("Consultar")) {
@@ -86,6 +95,16 @@ public class ManterCursoArtesController extends HttpServlet {
 		}
 
 		view.forward(request, response);
+	}
+	public int busca(ManterCursoArtes manterArtes, ArrayList<ArtesTO> lista) {
+		ArtesTO to;
+		for(int i = 0; i < lista.size(); i++){
+			to = lista.get(i);
+			if(to.getCodigo() == manterArtes.getCodigo()){
+				return i;
+			}
+		}
+		return -1;
 	}
 }
 		

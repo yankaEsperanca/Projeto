@@ -30,7 +30,6 @@ public class InformaticaDAOTest {
 		dao = new InformaticaDAO();
 		to = new InformaticaTO();
 				
-		to.setCodigo("info201601");
 		to.setNome("Curso de info simples");
 		to.setDataInicio("22/03/2016");
 		to.setDataTermino("22/03/2017");
@@ -49,7 +48,6 @@ public class InformaticaDAOTest {
 		//insert into cliente (nome, fone) values ('nome1', 'fone1');
 		InformaticaTO fixture = new InformaticaTO();
 				
-		fixture.setCodigo("Informatica I");
 		fixture.setNome("Informática I");
 		fixture.setDataInicio("02072016");
 		fixture.setDataTermino("060112016");
@@ -81,7 +79,6 @@ public class InformaticaDAOTest {
 
 	@Test
 	public void test03Excluir() {
-		to.setCodigo(null);
 		to.setNome(null);
 		to.setDataInicio(null);
 		to.setDataTermino(null);
@@ -94,7 +91,6 @@ public class InformaticaDAOTest {
 
 		dao.deletar(to);
 		InformaticaTO novo = dao.consultar(to);
-		novo.setCodigo(null);
 		novo.setNome(null);
 		novo.setDataInicio(null);
 		novo.setDataTermino(null);

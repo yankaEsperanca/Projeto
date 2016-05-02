@@ -32,7 +32,6 @@ public class CursoInformaticaModelTest {
 		InformaticaTO to = new InformaticaTO();
 
 		
-		to.setCodigo("info201601");
 		to.setNome("Curso de info simples");
 		to.setDataInicio("22/03/2016");
 		to.setDataTermino("22/03/2017");
@@ -54,7 +53,6 @@ public class CursoInformaticaModelTest {
 		//insert into cliente (nome, fone) values ('nome1', 'fone1');
 		InformaticaTO info = new InformaticaTO();
 		
-		info.setCodigo("Informatica I");
 		info.setNome("Informática I");
 		info.setDataInicio("02072016");
 		info.setDataTermino("060112016");
@@ -67,7 +65,7 @@ public class CursoInformaticaModelTest {
 		
 
 		InformaticaTO busca = new InformaticaTO();
-		busca.setCodigo("Informatica I");
+		busca.setNome("Informatica I");
 
 		ManterCursoInformatica fixture = new ManterCursoInformatica(info);
 		ManterCursoInformatica novo = new ManterCursoInformatica(busca);
@@ -94,7 +92,6 @@ public class CursoInformaticaModelTest {
 	@Test
 	public void test03Excluir() {
 
-		info.setCodigo(null);
 		info.setNome(null);
 		info.setDataInicio(null);
 		info.setDataTermino(null);
@@ -106,7 +103,6 @@ public class CursoInformaticaModelTest {
 		info.setDisponibilidade(null);
 		
 		
-		copia.setCodigo(null);
 		copia.setNome(null);
 		copia.setDataInicio(null);
 		copia.setDataTermino(null);

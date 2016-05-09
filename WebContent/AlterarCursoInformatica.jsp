@@ -24,7 +24,7 @@
 		<h3 class="page-header"> Alterar Curso código: ${infoTO.codigo}</h3>
 		<!-- Formulario para alteração de aluno -->
 		
-		<form action="ManterCursoInformaticaController.do" method="post">
+		<form action="controller.do" method="post">
 			<!-- area de campos do form -->
 
 			<input type="hidden" name="codigo" value="${infoTO.codigo}" />
@@ -75,11 +75,10 @@
 			<input type="text" class="form-control" name="disp" size="40" maxlength="20" placeholder="disponibilidade" value="${infoTO.disponibilidade}">
 		</div>
 
-
 	<hr />
 	<div id="actions" class="row">
 		<div class="col-md-12">
-			<button type="submit" class="btn btn-primary" name="acao" value="Alterar">Salvar</button>
+			<button type="submit" class="btn btn-primary" name="command" value="AlterarCursoInformatica">Salvar</button>
 			<a href="ListarInformatica.jsp" class="btn btn-default">Cancelar</a>
 		</div>
 	</div>

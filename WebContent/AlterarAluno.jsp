@@ -24,7 +24,7 @@
 			Alterar Aluno CPF: ${alunoTO.cpf}</h3>
 		<!-- Formulario para alteração de aluno -->
 		
-		<form action="ManterAlunoController.do" method="post">
+		<form action="controller.do" method="post">
 			<!-- area de campos do form -->
 
 			<input type="hidden" name="cpf" value="${alunoTO.cpf}" />
@@ -82,8 +82,7 @@
 	<hr />
 	<div id="actions" class="row">
 		<div class="col-md-12">
-			<button type="submit" class="btn btn-primary" name="acao"
-				value="Alterar">Salvar</button>
+			<button type="submit" class="btn btn-primary" name="command" value="AlterarAluno">Salvar</button>
 			<a href="ListarAluno.jsp" class="btn btn-default">Cancelar</a>
 		</div>
 	</div>

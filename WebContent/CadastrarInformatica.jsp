@@ -19,44 +19,12 @@
 
  <!-- Barra superior com os menus de navegação -->
 	<c:import url="Menu.jsp"/>
-<!--  menu -->
-
-	<!-- Barra superior com os menus de navegação -->
-	<nav class="navbar navbar-inverse navbar-fixed-top">
-		<div class="container-fluid">
-			<div class="navbar-header">
-				<button type="button" class="navbar-toggle collapsed"
-					data-toggle="collapse" data-target="#navbar" aria-expanded="false"
-					aria-controls="navbar">
-					<span class="sr-only">Toggle navigation</span> <span
-						class="icon-bar"></span> <span class="icon-bar"></span> <span
-						class="icon-bar"></span>
-				</button>
-				<a class="navbar-brand" href="listar_curso_informatica.html">Curso Informática</a>
-				<!-- nome que estará no menu, e o href chama outra paginca -->
-			</div>
-			<div id="navbar" class="navbar-collapse collapse">
-				<ul class="nav navbar-nav navbar-right">
-					<li><a href="listar_aluno.html">Aluno</a></li>
-					<!-- Quando clicar ele direciona para a outra pagina criada em HTML -->
-					<li><a href="listar_curso_artes.html">Curso Artes</a></li>
-					<!-- montamos os nomes que terão no nosso menu bar -->
-					<li><a href="listar_curso_informatica.html">Curso Informática</a></li>
-					<li><a href="#">Matrícula</a></li>
-				</ul>
-			</div>
-		</div>
-	</nav>
-	<br>
-	<br>
-	<br>
-	
 
 <!-- container principal -->
 	<div id="main" class="container">
 		<h2>Cadastro curso de informática</h2>
 		
-		<form action="ManterCursoInformaticaController.do" method = "post">     <!--coloca o .do para indicar que faz algo  --> 
+		<form action="controller.do" method = "post">     <!--coloca o .do para indicar que faz algo  --> 
 
 	  <div class="row">
     
@@ -108,11 +76,11 @@
 			</div>	
 			 <div class="row">
 			<div class="form-group col-md-6">
-			<button type="submit"  name="acao" value="Criar" class="btn btn-primary">Cadastrar
+			<button type="submit"  name="command" value="CadastrarCursoInformatica" class="btn btn-primary">Cadastrar
     			<span class="glyphicon glyphicon-floppy-save" aria-hidden="true"></span> 
     		</button>
     		
-    		<a href="listar_curso_informatica.html" class="btn btn-default btn-default  active  "> Cancelar 
+    		<a href="index.jsp" class="btn btn-default btn-default  active"> Cancelar 
     		<span class="glyphicon glyphicon-remove" aria-hidden="true"></span> 	
  			</a>
 			 </div>

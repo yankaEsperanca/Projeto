@@ -12,7 +12,7 @@
 
             <link href="css/bootstrap.min.css" rel="stylesheet">
             <link href="css/style.css" rel="stylesheet">
-
+       
         </head>
 
         <body>
@@ -29,9 +29,9 @@
                             Deseja realmente excluir este curso?
                         </div>
                         <div class="modal-footer">
-                            <form action="ManterCursoArtesController.do" method="post">
+                            <form action="controller.do" method="post">
                                 <input type="hidden" name="id" id="id_excluir" />
-                                <button type="submit" class="btn btn-primary" name="acao" value="Excluir">Sim</button>
+                                <button type="submit" class="btn btn-primary" name="command" value="ExcluirCursoArtes">Sim</button>
                                 <button type="button" class="btn btn-default" data-dismiss="modal">N&atilde;o</button>
                             </form>
                         </div>
@@ -45,7 +45,7 @@
 	
             <!-- Container Principal -->
             <div id="main" class="container-fluid">
-                <form action="listar_curso_artesController.do" method="post">
+                <form action="controller.do" method="post">
                     <div id="top" class="row">
                         <div class="col-md-3">
                             <h2>Curso Artes</h2>
@@ -55,7 +55,7 @@
                             <div class="input-group h2">
                                 <input name="data[search]" class="form-control" id="search" type="text" placeholder="Pesquisar Curso artes (deixe vazio para trazer todos)">
                                 <span class="input-group-btn">
-                <button class="btn btn-primary" type="submit" name="acao" value="buscar">
+                <button class="btn btn-primary" type="submit" name="command" value="ListarCursoArtesBuscar">
                     <span class="glyphicon glyphicon-search"></span>
                                 </button>
                                 </span>
@@ -108,9 +108,10 @@
 							<td>${artesTO.disponibilidade}</td>
 
                                   <td class="actions">
-                               <a class="btn btn-success btn-xs" href="ManterCursoArtesController.do?acao=Consultar&codigo=${artesTO.codigo}">Visualizar</a>
-								<a class="btn btn-warning btn-xs" href="ManterCursoArtesController.do?acao=Editar&codigo=${artesTO.codigo}">Editar</a>
+                               <a class="btn btn-success btn-xs" href="controller.do?command=ConsultarCursoArtes&codigo=${artesTO.codigo}">Visualizar</a>
+								<a class="btn btn-warning btn-xs" href="controller.do?command=EditarCursoArtes&codigo=${artesTO.codigo}">Editar</a>
 								
+				
 								<button id="btn${artesTO.codigo}" type="button"	class="btn btn-danger btn-xs" data-toggle="modal" data-target="#delete-modal" data-cliente="${artesTO.codigo}">Excluir</button>
 							</td>
 						</tr>

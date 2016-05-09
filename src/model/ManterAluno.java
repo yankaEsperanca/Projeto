@@ -1,5 +1,6 @@
 package model;
 
+
 import daoAluno.*;
 import to.AlunoTO;
 
@@ -166,6 +167,12 @@ public class ManterAluno {
 		AlunoTO to = dao.consultarCPF(armazenaCpf);
 
 		return to;
+	}
+	
+	public void atualizar() {
+		AlunoDAO dao = new AlunoDAO();
+		AlunoTO to = getTO();
+		dao.alterar(to);
 	}
 	/*
 	public String consultarTodos(){

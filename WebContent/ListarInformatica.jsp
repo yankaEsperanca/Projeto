@@ -29,9 +29,9 @@
 				Deseja realmente excluir este curso?
 				</div>
 				<div class="modal-footer">
-					<form action="ManterCursoInformaticaController.do" method="post">
+					<form action="controller.do" method="post">
 						<input type="hidden" name="id" id="id_excluir" />
-						<button type="submit" class="btn btn-primary" name="acao" value="Excluir">Sim</button>
+						<button type="submit" class="btn btn-primary" name="command" value="ExcluirCursoInformatica">Sim</button>
 						<button type="button" class="btn btn-default" data-dismiss="modal">N&atilde;o</button>
 					</form>
 				</div>
@@ -46,7 +46,7 @@
 
 	<!-- Container Principal -->
 	<div id="main" class="container-fluid">
-		<form action="listar_curso_informaticaController.do" method="post">
+		<form action="controller.do" method="post">
 			<div id="top" class="row">
 				<div class="col-md-3">
 
@@ -58,7 +58,7 @@
 					<div class="input-group h2">
 						<input name="data[search]" class="form-control" id="search" type="text" placeholder="Pesquisar cursos de informática (deixe vazio para trazer todos)">
 						<span class="input-group-btn">
-							<button class="btn btn-primary" type="submit" name="acao" value="buscar">
+							<button class="btn btn-primary" type="submit" name="command" value="ListarCursoInformaticaBuscar">
 								<span class="glyphicon glyphicon-search"></span>
 							</button>
 						</span>
@@ -111,8 +111,8 @@
 
 
 								<td class="actions">
-								<a class="btn btn-success btn-xs" href="ManterCursoInformaticaController.do?acao=Consultar&codigo=${infoTO.codigo}">Visualizar</a>
-						    	<a class="btn btn-warning btn-xs" href="ManterCursoInformaticaController.do?acao=Editar&codigo=${infoTO.codigo}">Editar</a>
+								<a class="btn btn-success btn-xs" href="controller.do?command=ConsultarCursoInformatica&codigo=${infoTO.codigo}">Visualizar</a>
+						    	<a class="btn btn-warning btn-xs" href="controller.do?command=EditarCursoInformatica&codigo=${infoTO.codigo}">Editar</a>
 
 								<button id="btn${infoTO.codigo}%>" type="button" class="btn btn-danger btn-xs" data-toggle="modal" data-target="#delete-modal" data-cliente="${infoTO.codigo}">Excluir</button>
 

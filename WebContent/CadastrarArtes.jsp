@@ -24,7 +24,7 @@
 	<div id="main" class="container">
 		<h2>Cadastro curso de artes</h2>
 		
-		<form action="ManterCursoArtesController.do" method = "post">     <!--coloca o .do para indicar que faz algo  --> 
+		<form action="controller.do" method = "post">     <!--coloca o .do para indicar que faz algo  --> 
 
 	  <div class="row">
     
@@ -76,11 +76,11 @@
 				</div>	
 			 <div class="row">
 			<div class="form-group col-md-6">
-			<button type="submit"  name="acao" value="Criar" class="btn btn-primary">Cadastrar
+			<button type="submit"  name="command" value="CadastrarCursoArtes" class="btn btn-primary">Cadastrar
     			<span class="glyphicon glyphicon-floppy-save" aria-hidden="true"></span> 
     		</button>
     		
-    		<a href="listar_curso_artes.html" class="btn btn-default btn-default  active  "> Cancelar 
+    		<a href="ListarArtes.jsp" class="btn btn-default btn-default  active  "> Cancelar 
     		<span class="glyphicon glyphicon-remove" aria-hidden="true"></span> 	
  			</a>
  

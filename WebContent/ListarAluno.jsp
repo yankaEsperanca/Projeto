@@ -27,9 +27,9 @@
                             Deseja realmente excluir este aluno?
                         </div>
                         <div class="modal-footer">
-                            <form action="ManterAlunoController.do" method="post">
+                            <form action="controller.do" method="post">
                                 <input type="hidden" name="id" id="id_excluir" />
-                                <button type="submit" class="btn btn-primary" name="acao" value="Excluir">Sim</button>
+                                <button type="submit" class="btn btn-primary" name="command" value="ExcluirAluno">Sim</button>
                                 <button type="button" class="btn btn-default" data-dismiss="modal">N&atilde;o</button>
                             </form>
                         </div>
@@ -42,7 +42,7 @@
 			
             <!-- Container Principal -->
             <div id="main" class="container-fluid">
-                <form action="listar_alunosController.do" method="post">
+                <form action="controller.do" method="post">
                     <div id="top" class="row">
                         <div class="col-md-3">
                             <h2>Aluno</h2>
@@ -52,7 +52,7 @@
                             <div class="input-group h2">
                                 <input name="data[search]" class="form-control" id="search" type="text" placeholder="Pesquisar Alunos (deixe vazio para trazer todos)">
                                 <span class="input-group-btn">
-                <button class="btn btn-primary" type="submit" name="acao" value="buscar">
+                <button class="btn btn-primary" type="submit" name="command" value="ListarAlunosBuscar">
                     <span class="glyphicon glyphicon-search"></span>
                                 </button>
                                 </span>
@@ -98,8 +98,8 @@
 											<td>${alunoTO.senha}</td>
                                         
                                             <td class="actions">
-                                                <a class="btn btn-success btn-xs" href="ManterAlunoController.do?acao=Consultar&cpf=${alunoTO.cpf}">Visualizar</a>
-                                                <a class="btn btn-warning btn-xs" href="ManterAlunoController.do?acao=Editar&cpf=${alunoTO.cpf}">Editar</a>
+                                                <a class="btn btn-success btn-xs" href="controller.do?command=ConsultarAluno&cpf=${alunoTO.cpf}">Visualizar</a>
+                                                <a class="btn btn-warning btn-xs" href="controller.do?command=EditarAluno&cpf=${alunoTO.cpf}">Editar</a>
                                                 <button id="btn${alunoTO.cpf}" type="button" class="btn btn-danger btn-xs" data-toggle="modal" data-target="#delete-modal" data-cliente="${alunoTO.cpf}">Excluir</button>
                                             </td>
                                         </tr>

@@ -12,12 +12,12 @@
 			</div>
 			<div id="navbar" class="navbar-collapse collapse">
 				<ul class="nav navbar-nav navbar-right">
-					<li><a href="listar_alunosController.do?acao=reiniciar">Aluno</a></li>
+					<li><a href="controller.do?command=ListarAlunosReiniciar">Aluno</a></li>
 					<!-- Quando clicar ele direciona para a outra pagina criada em HTML -->
-					<li><a href="listar_curso_artesController.do?acao=reiniciar">Curso Artes</a></li>
+					<li><a href="controller.do?command=ListarCursoInformaticaReiniciar">Curso Informática </a></li>
 					<!-- montamos os nomes que terão no nosso menu bar -->
-					<li><a href="listar_curso_informaticaController.do?acao=reiniciar">Curso Informática</a></li>
-					<li><a href="#">Países</a></li>
+					<li><a href="controller.do?command=ListarCursoArtesReiniciar">Curso Artes </a></li>
+					<li><a href="#">Cursos escolhidos de artes</a></li>
 				</ul>
 			</div>
 		</div>

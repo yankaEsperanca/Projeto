@@ -16,8 +16,6 @@
 
 <body>
 
-
-	
 	<!-- Barra superior com os menus de navegação -->
 	<c:import url="Menu.jsp"/>
 	
@@ -26,7 +24,7 @@
 		<h3 class="page-header"> Alterar Curso código: ${artesTO.codigo}</h3>
 		<!-- Formulario para alteração de aluno -->
 		
-		<form action="ManterCursoArtesController.do" method="post">
+		<form action="controller.do" method="post">
 			<!-- area de campos do form -->
 
 			<input type="hidden" name="codigo" value="${artesTO.codigo}" />
@@ -69,7 +67,7 @@
 	
 		<div class="form-group col-md-6">
 			<label for="registroSoft" >Nome livros utilizados: </label><br>
-		<input type="text" class="form-control" name="nomeLivros" size="40" maxlength="45" placeholder="nome dos livros usados" value="${artesTO.nomeLivrosUtilizados">
+		<input type="text" class="form-control" name="nomeLivros" size="40" maxlength="45" placeholder="nome dos livros usados" value="${artesTO.nomeLivrosUtilizados}">
 		</div>
 
 		<div class="form-group col-md-6">
@@ -81,7 +79,7 @@
 	<hr />
 	<div id="actions" class="row">
 		<div class="col-md-12">
-			<button type="submit" class="btn btn-primary" name="acao" value="Alterar">Salvar</button>
+			<button type="submit" class="btn btn-primary" name="command" value="AlterarCursoArtes">Salvar</button>
 			<a href="ListarArtes.jsp" class="btn btn-default">Cancelar</a>
 		</div>
 	</div>

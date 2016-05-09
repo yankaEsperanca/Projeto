@@ -24,7 +24,7 @@
 	<div id="main" class="container">
 		<h2>Cadastro de alunos</h2>
 		
-		<form action="ManterAlunoController.do" method = "post">     <!--coloca o .do para indicar que faz algo  --> 
+		<form action="controller.do" method = "post">     <!--coloca o .do para indicar que faz algo  --> 
 
 	  <div class="row">
     
@@ -49,7 +49,7 @@
 			</div>
 			
 			<div class="form-group col-md-6">
-				<label for="endereco"> EndereÃ§o: </label><br>
+				<label for="endereco"> Endereço: </label><br>
 				 <input type="text" class="form-control" name="endereco" size="40" maxlength="50" placeholder="endereÃ§o">
 			</div>
 			
@@ -60,7 +60,7 @@
 			</div>
 	
 			<div class="form-group col-md-6">
-				<label for="usuario"> UsuÃ¡rio: </label> <br> 
+				<label for="usuario"> Usuário: </label> <br> 
 				<input type="text" class="form-control" name="usuario" size="40" maxlength="20" placeholder="usuÃ¡rio">
 			</div>
 	
@@ -71,11 +71,11 @@
 			
 			
 			<div class="form-group col-md-6">
-			<button type="submit"  name="acao" value="Criar" class="btn btn-primary">Cadastrar
+			<button type="submit"  name="command" value="CadastrarAluno" class="btn btn-primary">Cadastrar
     			<span class="glyphicon glyphicon-floppy-save" aria-hidden="true"></span> 
     		</button>
     		
-    		<a href="listar_aluno.html" class="btn btn-default btn-default  active  "> Cancelar 
+    		<a href="ListarAlunos.jsp" class="btn btn-default btn-default  active"> Cancelar 
     		<span class="glyphicon glyphicon-remove" aria-hidden="true"></span> 	
  			</a>
  			 </div>

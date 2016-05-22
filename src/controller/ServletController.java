@@ -13,8 +13,7 @@ import command.Command;
 public class ServletController extends HttpServlet {
 	private static final long serialVersionUID = 1L;
 
-	protected void doExecute(HttpServletRequest request,
-			HttpServletResponse response) throws ServletException, IOException {
+	protected void doExecute(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		
 		try {
 			request.setCharacterEncoding("UTF-8");

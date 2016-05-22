@@ -1,16 +1,15 @@
 package daoAluno;
 
-import javax.swing.JOptionPane;
-
-import daoAluno.ConnectionFactory;
-import to.*;
-import java.util.ArrayList;
-import java.util.*;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
-import to.*;
+import java.util.ArrayList;
+
+import javax.swing.JOptionPane;
+
+import factory.ConnectionFactory;
+import to.AlunoTO;
 
 public class AlunoDAO {
 	

@@ -34,7 +34,7 @@ public class CadastrarCursoInformatica implements Command {
 			codigo = Integer.parseInt(pCodigo);
 			infoTO.setCodigo(codigo);
 		} catch (NumberFormatException e) {
-
+			System.out.println("erro:" + e.getMessage());
 		}
 
 		ManterCursoInformatica manterInformatica = new ManterCursoInformatica(infoTO);

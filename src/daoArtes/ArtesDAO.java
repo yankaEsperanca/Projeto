@@ -1,8 +1,12 @@
 package daoArtes;
 
-import java.sql.*;
-import to.*;
-import java.util.*;
+import java.sql.Connection;
+import java.sql.PreparedStatement;
+import java.sql.ResultSet;
+import java.sql.SQLException;
+import java.util.ArrayList;
+import factory.ConnectionFactory;
+import to.ArtesTO;
 
 
 public class ArtesDAO {

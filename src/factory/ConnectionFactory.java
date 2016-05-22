@@ -1,4 +1,4 @@
-package daoAluno;
+package factory;
 
 import java.sql.Connection;
 import java.sql.DriverManager;
@@ -15,8 +15,7 @@ public class ConnectionFactory {
 
 	// Obtém conexão com o banco de dados
 	public static Connection obtemConexao() throws SQLException {
-		return DriverManager
-				.getConnection("jdbc:mysql://localhost/aluno?user=root&password=alunos");
+		return DriverManager.getConnection("jdbc:mysql://localhost/projeto?user=root&password=alunos");
 	}
 
 }

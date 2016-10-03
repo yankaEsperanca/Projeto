@@ -27,6 +27,7 @@ public class ListarAlunosBuscar implements Command {
 		else {				
 			lista = lA.listarAluno();
 		}
+		
 		session.setAttribute("lista", lista);		
 
 		RequestDispatcher dispatcher = request.getRequestDispatcher("ListarAluno.jsp");

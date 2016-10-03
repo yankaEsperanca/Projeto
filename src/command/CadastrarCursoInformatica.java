@@ -18,6 +18,7 @@ public class CadastrarCursoInformatica implements Command {
 			throws ServletException, IOException {
 		request.setCharacterEncoding("UTF-8");
 		InformaticaTO infoTO = new InformaticaTO();
+		infoTO.setTipoCurso(2);
 		
  		String pCodigo = request.getParameter("codigo");
 		infoTO.setNome(request.getParameter("nome"));
@@ -34,7 +35,7 @@ public class CadastrarCursoInformatica implements Command {
 			codigo = Integer.parseInt(pCodigo);
 			infoTO.setCodigo(codigo);
 		} catch (NumberFormatException e) {
-			System.out.println("erro:" + e.getMessage());
+
 		}
 
 		ManterCursoInformatica manterInformatica = new ManterCursoInformatica(infoTO);

@@ -13,6 +13,7 @@ public class ListarMatriculaReiniciar implements Command {
 		@Override
 		public void executa(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 
+		
 			HttpSession session = request.getSession();
 			session.setAttribute("lista", null);
 

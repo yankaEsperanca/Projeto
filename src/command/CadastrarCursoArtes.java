@@ -18,7 +18,8 @@ public class CadastrarCursoArtes implements Command{
 			throws ServletException, IOException {
 		request.setCharacterEncoding("UTF-8");
 		
-	ArtesTO artesTO = new ArtesTO();
+		ArtesTO artesTO = new ArtesTO();
+		artesTO.setTipoCurso(1);
 		
  		String pCodigo = request.getParameter("codigo");
  		artesTO.setNome(request.getParameter("nome"));

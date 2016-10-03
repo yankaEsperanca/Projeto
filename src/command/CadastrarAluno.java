@@ -21,6 +21,7 @@ public class CadastrarAluno implements Command {
 
 		request.setCharacterEncoding("UTF-8");
 		AlunoTO alunoTO = new AlunoTO();
+		String pCodigo = request.getParameter("codigo");
 		alunoTO.setNome(request.getParameter("nome")); // nome do parametro do formulário 
 		alunoTO.setEndereco(request.getParameter("endereco"));
 		alunoTO.setTelefone(request.getParameter("telefone")); // nome do parametro do formulário 
@@ -29,6 +30,14 @@ public class CadastrarAluno implements Command {
 		alunoTO.setEmail(request.getParameter("email"));
 		alunoTO.setLogin(request.getParameter("usuario")); // nome do parametro do formulário 
 		alunoTO.setSenha(request.getParameter("senha"));
+		int codigo = -1;
+		try {
+			codigo = Integer.parseInt(pCodigo);
+			alunoTO.setCodigo(codigo);
+		} catch (NumberFormatException e) {
+
+		}
+
 
 		ManterAluno manterAluno = new ManterAluno(alunoTO);
 		HttpSession session = request.getSession();
